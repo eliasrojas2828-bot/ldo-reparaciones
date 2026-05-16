@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.png">
+
+<title>LDO Service</title>
+
+<style>
+
+:root{
+--cyan:#38bdf8;
+--green:#84cc16;
+--dark:#020617;
+--panel:#0f172a;
+--text:#e2e8f0;
+}
+
+body{
+margin:0;
+padding:20px;
+background:linear-gradient(to bottom,#020617,#0f172a);
+font-family:Arial;
+color:var(--text);
+min-height:100vh;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+}
+
+.logo{
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:25px;
+display:block;
+margin:auto;
+box-shadow:0 0 30px rgba(56,189,248,.4);
+}
+
+.card{
+background:rgba(15,23,42,.95);
+padding:25px;
+border-radius:25px;
+margin-top:20px;
+box-shadow:0 0 25px rgba(56,189,248,.15);
+backdrop-filter:blur(10px);
+}
+
+h1{
+text-align:center;
+color:white;
+margin-top:25px;
+margin-bottom:10px;
+font-size:38px;
+line-height:1.3;
+font-weight:800;
+text-shadow:0 0 20px rgba(56,189,248,.4);
+}
+
+.sub{
+text-align:center;
+opacity:.85;
+margin-bottom:30px;
+font-size:16px;
+line-height:1.6;
+color:#cbd5e1;
+}
+
+.steps{
+display:flex;
+justify-content:space-between;
+margin-bottom:25px;
+font-size:13px;
+opacity:.8;
+}
+
+.steps div{
+background:#111827;
+padding:10px;
+border-radius:12px;
+flex:1;
+margin:3px;
+text-align:center;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:15px;
+margin-top:14px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:white;
+box-sizing:border-box;
+font-size:15px;
+}
+
+textarea{
+min-height:120px;
+resize:none;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:15px;
+}
+
+.box{
+background:#111827;
+padding:15px;
+border-radius:14px;
+}
+
+button{
+box-shadow:0 0 20px rgba(132,204,22,.35);
+width:100%;
+padding:16px;
+margin-top:25px;
+border:none;
+border-radius:14px;
+background:var(--green);
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.02);
+}
+
+.info{
+margin-top:25px;
+background:#111827;
+padding:20px;
+border-radius:18px;
+line-height:1.8;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25d366;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+text-decoration:none;
+color:white;
+box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+.msg{
+text-align:center;
+margin-top:15px;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<img src="icon.png" class="logo">
+
+<h1>⚡ Reparaciones de celulares<br>y microsoldadura</h1>
+
+<div class="sub">
+Servicio técnico especializado con atención rápida y seguimiento por WhatsApp
+</div>
+
+<div class="card">
+
+
+
+<input
+type="text"
+id="cliente"
+placeholder="👤 Nombre completo">
+
+<input
+type="tel"
+id="telefono"
+placeholder="📲 WhatsApp">
+
+<input
+type="text"
+id="equipo"
+placeholder="📱 Equipo o modelo">
+
+<div class="grid">
+
+<div class="box">
+⚡ ¿Enciende?
+<select id="enciende">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+<div class="box">
+🔋 ¿Carga?
+<select id="carga">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+<div class="box">
+🖼️ ¿Da imagen?
+<select id="imagen">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+<div class="box">
+💧 ¿Se mojó?
+<select id="mojo">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+</div>
+
+<textarea
+id="falla"
+placeholder="🛠️ Describe la falla del equipo"></textarea>
+
+<button onclick="enviar()">
+ENVIAR SOLICITUD
+</button>
+
+<div class="msg" id="msg"></div>
+
+<div class="info">
+✔ Atención rápida<br>
+✔ Seguimiento por WhatsApp<br>
+✔ Presupuesto sin cargo<br>
+✔ Servicio profesional
+</div>
+
+</div>
+
+</div>
+
+<a
+class="whatsapp"
+href="https://wa.me/543756432527"
+target="_blank">
+💬
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+async function enviar(){
+
+const cliente =
+document.getElementById('cliente').value;
+
+const telefono =
+document.getElementById('telefono').value;
+
+const equipo =
+document.getElementById('equipo').value;
+
+const falla =
+document.getElementById('falla').value;
+
+const enciende =
+document.getElementById('enciende').value;
+
+const carga =
+document.getElementById('carga').value;
+
+const imagen =
+document.getElementById('imagen').value;
+
+const mojo =
+document.getElementById('mojo').value;
+
+const item = {
+
+orden:
+'LDO-' + Math.floor(Math.random()*999999),
+
+fecha:
+new Date().toLocaleString(),
+
+cliente:cliente,
+telefono:telefono,
+equipo:equipo,
+falla:falla,
+estado:'Recibido',
+monto:''
+
+};
+
+const { error } =
+await supabaseClient
+.from('ordenes')
+.insert([item]);
+
+if(error){
+
+document.getElementById('msg')
+.innerHTML='Error al enviar';
+
+return;
+
+}
+
+const mensaje =
+`🔧 NUEVO INGRESO AL TALLER %0A%0A`+
+`📌 Orden: ${item.orden}%0A%0A`+
+`📅 Fecha: ${item.fecha}%0A%0A`+
+`👤 Cliente: ${cliente}%0A%0A`+
+`📲 WhatsApp: ${telefono}%0A%0A`+
+`📱 Equipo: ${equipo}%0A%0A`+
+`⚡ Enciende: ${enciende}%0A%0A`+
+`🔋 Carga: ${carga}%0A%0A`+
+`🖼️ Da imagen: ${imagen}%0A%0A`+
+`💧 Se mojó: ${mojo}%0A%0A`+
+`🛠️ Falla: ${falla}`;
+
+window.open(
+`https://wa.me/543756432527?text=${mensaje}`,
+'_blank'
+);
+
+
+
+document.getElementById('msg')
+.innerHTML='✅ Solicitud enviada correctamente';
+
+}
+
+</script>
+
+</body>
+</html>

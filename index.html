@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gestión LDO</title>
+
+<style>
+
+:root{
+--cyan:#38bdf8;
+--green:#84cc16;
+--dark:#020617;
+--panel:#0f172a;
+--text:#e2e8f0;
+--danger:#ef4444;
+}
+
+body{
+margin:0;
+padding:20px;
+background:var(--dark);
+font-family:Arial;
+color:var(--text);
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:var(--panel);
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+box-shadow:0 0 20px rgba(56,189,248,.2);
+}
+
+h1{
+color:var(--cyan);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+input,
+select{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#111827;
+color:white;
+box-sizing:border-box;
+}
+
+button{
+padding:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.btn-save{
+background:var(--green);
+}
+
+.btn-delete{
+background:var(--danger);
+color:white;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #1e293b;
+text-align:left;
+}
+
+tr:hover{
+background:#111827;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="loginBox"
+style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#020617;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
+
+<div
+style="
+background:#0f172a;
+padding:30px;
+border-radius:15px;
+width:300px;
+">
+
+<h2>Ingreso LDO</h2>
+
+<input
+type="password"
+id="password"
+placeholder="Contraseña">
+
+<button
+class="btn-save"
+onclick="login()"
+style="width:100%;margin-top:15px;">
+
+INGRESAR
+
+</button>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>GESTIÓN INTERNA LDO</h1>
+
+<div class="grid">
+
+<input
+type="text"
+id="cliente"
+placeholder="Cliente">
+
+<input
+type="text"
+id="equipo"
+placeholder="Equipo">
+
+<input
+type="tel"
+id="telefono"
+placeholder="WhatsApp">
+
+<input
+type="number"
+id="monto"
+placeholder="Monto">
+
+<select id="estado">
+
+<option>Recibido</option>
+<option>Diagnosticando</option>
+<option>Esperando repuesto</option>
+<option>En reparación</option>
+<option>Listo para retirar</option>
+<option>Entregado</option>
+
+</select>
+
+<button
+class="btn-save"
+onclick="guardar()">
+
+GUARDAR
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<input
+type="text"
+id="buscar"
+placeholder="Buscar cliente..."
+onkeyup="filtrar()">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Orden</th>
+<th>Fecha</th>
+<th>Cliente</th>
+<th>Equipo</th>
+<th>Estado</th>
+<th>Monto</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody id="lista"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="supabase.js"></script>
+
+<script>
+
+let datos = [];
+
+async function cargarOrdenes(){
+
+const { data, error } =
+await supabaseClient
+.from('ordenes')
+.select('*')
+.order('id',{ascending:false});
+
+if(error){
+
+console.log(error);
+
+return;
+
+}
+
+datos = data;
+
+renderizar(datos);
+
+}
+
+function renderizar(listaDatos){
+
+const lista =
+document.getElementById('lista');
+
+lista.innerHTML='';
+
+listaDatos.forEach(i=>{
+
+lista.innerHTML += `
+
+<tr>
+
+<td>${i.orden || ''}</td>
+<td>${i.fecha || ''}</td>
+<td>${i.cliente || ''}</td>
+<td>${i.equipo || ''}</td>
+<td>${i.estado || ''}</td>
+<td>
+
+<input
+type="number"
+value="${i.monto || ''}"
+onchange="actualizarMonto(${i.id},this.value)">
+
+</td>
+
+<td>
+
+<button
+onclick="imprimir(${i.id})">
+
+PDF
+
+</button>
+
+<button
+class="btn-delete"
+onclick="eliminar(${i.id})">
+
+Eliminar
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function filtrar(){
+
+const texto =
+document.getElementById('buscar')
+.value
+.toLowerCase();
+
+const filtrados =
+datos.filter(i=>
+
+(i.cliente || '')
+.toLowerCase()
+.includes(texto)
+
+);
+
+renderizar(filtrados);
+
+}
+
+async function guardar(){
+
+const item = {
+
+orden:
+'LDO-' + Math.floor(Math.random()*999999),
+
+fecha:
+new Date().toLocaleString(),
+
+cliente:
+document.getElementById('cliente').value,
+
+equipo:
+document.getElementById('equipo').value,
+
+telefono:
+document.getElementById('telefono').value,
+
+monto:
+document.getElementById('monto').value,
+
+estado:
+document.getElementById('estado').value,
+
+falla:''
+
+};
+
+const { error } =
+await supabaseClient
+.from('ordenes')
+.insert([item]);
+
+if(error){
+
+alert('ERROR');
+console.log(error);
+return;
+
+}
+
+alert('GUARDADO');
+
+document.getElementById('cliente').value='';
+document.getElementById('equipo').value='';
+document.getElementById('telefono').value='';
+document.getElementById('monto').value='';
+
+cargarOrdenes();
+
+}
+
+function imprimir(id){
+
+const item =
+datos.find(i=>i.id===id);
+
+const ventana =
+window.open('','_blank');
+
+ventana.document.write(`
+
+<h1>COMPROBANTE LDO</h1>
+
+<p><b>Orden:</b> ${item.orden}</p>
+
+<p><b>Fecha:</b> ${item.fecha}</p>
+
+<p><b>Cliente:</b> ${item.cliente}</p>
+
+<p><b>Equipo:</b> ${item.equipo}</p>
+
+<p><b>Estado:</b> ${item.estado}</p>
+
+<p><b>Monto:</b> $${item.monto}</p>
+
+`);
+
+ventana.print();
+
+}
+
+async function actualizarMonto(id,monto){
+
+await supabaseClient
+.from('ordenes')
+.update({
+monto:monto
+})
+.eq('id',id);
+
+}
+
+async function eliminar(id){
+
+await supabaseClient
+.from('ordenes')
+.delete()
+.eq('id',id);
+
+cargarOrdenes();
+
+}
+
+function login(){
+
+const pass =
+document.getElementById('password').value;
+
+if(pass === '1234'){
+
+document.getElementById('loginBox')
+.style.display='none';
+
+}else{
+
+alert('Contraseña incorrecta');
+
+}
+
+}
+
+cargarOrdenes();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "LDO Servicio Técnico",
+  "short_name": "LDO",
+  "start_url": "/cliente.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

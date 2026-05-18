@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Gestión LDO</title>
+
 <style>
+
 :root{
 --cyan:#38bdf8;
 --green:#84cc16;
@@ -13,90 +17,280 @@
 --text:#e2e8f0;
 --danger:#ef4444;
 }
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 padding:20px;
-background:var(--dark);
-font-family:Arial;
+background:
+radial-gradient(circle at top,#0f172a,#020617 70%);
+font-family:Arial,sans-serif;
 color:var(--text);
+min-height:100vh;
 }
+
 .container{
 max-width:1200px;
 margin:auto;
+animation:fade .5s ease;
 }
+
 .card{
-background:var(--panel);
-padding:20px;
-border-radius:15px;
+background:rgba(15,23,42,.75);
+padding:22px;
+border-radius:22px;
 margin-bottom:20px;
-box-shadow:0 0 20px rgba(56,189,248,.2);
+backdrop-filter:blur(12px);
+border:1px solid rgba(56,189,248,.08);
+box-shadow:0 0 25px rgba(56,189,248,.12);
 }
+
 h1{
 color:var(--cyan);
+margin-top:0;
 }
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
 }
+
 input,
 select{
 width:100%;
-padding:12px;
+padding:13px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:#111827;
 color:white;
 box-sizing:border-box;
+border:1px solid rgba(56,189,248,.08);
 }
+
+input:focus,
+select:focus{
+outline:none;
+border-color:#38bdf8;
+box-shadow:0 0 15px rgba(56,189,248,.2);
+}
+
 button{
-padding:10px;
+padding:12px;
 border:none;
-border-radius:8px;
+border-radius:12px;
 cursor:pointer;
 font-weight:bold;
+transition:.3s;
 }
+
+button:hover{
+transform:translateY(-2px);
+}
+
 .btn-save{
-background:var(--green);
+background:linear-gradient(135deg,#84cc16,#38bdf8);
 color:white;
 }
+
 .btn-delete{
 background:var(--danger);
 color:white;
 }
+
+.btn-logout{
+background:#ef4444;
+color:white;
+margin-top:10px;
+}
+
+.table-wrap{
+overflow-x:auto;
+}
+
 table{
 width:100%;
 border-collapse:collapse;
 margin-top:20px;
+min-width:900px;
 }
+
 th,td{
 padding:12px;
 border-bottom:1px solid #1e293b;
 text-align:left;
 }
+
 tr:hover{
 background:#111827;
 }
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat{
+background:rgba(15,23,42,.7);
+padding:20px;
+border-radius:18px;
+border:1px solid rgba(56,189,248,.08);
+box-shadow:0 0 20px rgba(56,189,248,.08);
+}
+
+.stat h3{
+margin:0;
+font-size:15px;
+opacity:.8;
+}
+
+.stat p{
+font-size:28px;
+margin:10px 0 0;
+font-weight:bold;
+color:var(--cyan);
+}
+
+#loginBox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#020617;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.login-card{
+background:#0f172a;
+padding:35px;
+border-radius:25px;
+width:340px;
+box-shadow:0 0 40px rgba(56,189,248,.2);
+border:1px solid rgba(56,189,248,.08);
+}
+
+.login-title{
+text-align:center;
+color:var(--cyan);
+margin-bottom:20px;
+font-size:28px;
+font-weight:bold;
+}
+
+.login-msg{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
 </style>
+
 </head>
 <body>
 
-<div id="loginBox" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#020617;display:flex;justify-content:center;align-items:center;z-index:9999;">
-<div style="background:#0f172a;padding:30px;border-radius:15px;width:300px;">
-<h2>Ingreso LDO</h2>
-<input type="password" id="password" placeholder="Contraseña">
-<button class="btn-save" onclick="login()" style="width:100%;margin-top:15px;">INGRESAR</button>
+<div id="loginBox">
+
+<div class="login-card">
+
+<div class="login-title">
+⚡ LDO LOGIN
 </div>
+
+<input
+type="email"
+id="email"
+placeholder="Correo">
+
+<input
+type="password"
+id="password"
+placeholder="Contraseña"
+style="margin-top:12px;">
+
+<button
+class="btn-save"
+onclick="login()"
+style="width:100%;margin-top:18px;">
+
+INGRESAR
+
+</button>
+
+<div
+id="loginMsg"
+class="login-msg">
+</div>
+
+</div>
+
 </div>
 
 <div class="container">
+
+<div class="stats">
+
+<div class="stat">
+<h3>Total órdenes</h3>
+<p id="totalOrdenes">0</p>
+</div>
+
+<div class="stat">
+<h3>Reparando</h3>
+<p id="reparando">0</p>
+</div>
+
+<div class="stat">
+<h3>Entregados</h3>
+<p id="entregados">0</p>
+</div>
+
+<div class="stat">
+<h3>Ganancias</h3>
+<p id="ganancias">$0</p>
+</div>
+
+</div>
+
 <div class="card">
+
 <h1>GESTIÓN INTERNA LDO</h1>
-<div class="grid">
+
+<button
+class="btn-logout"
+onclick="logout()">
+Cerrar sesión
+</button>
+
+<div class="grid" style="margin-top:20px;">
+
 <input type="text" id="cliente" placeholder="Cliente">
+
 <input type="text" id="equipo" placeholder="Equipo">
+
 <input type="tel" id="telefono" placeholder="WhatsApp">
+
 <input type="number" id="monto" placeholder="Monto">
+
 <select id="estado">
 <option>Recibido</option>
 <option>Diagnosticando</option>
@@ -105,14 +299,33 @@ background:#111827;
 <option>Listo para retirar</option>
 <option>Entregado</option>
 </select>
-<button class="btn-save" onclick="guardar()">GUARDAR</button>
+
+<button
+class="btn-save"
+onclick="guardar()">
+
+GUARDAR
+
+</button>
+
 </div>
+
 </div>
 
 <div class="card">
-<input type="text" id="buscar" placeholder="Buscar cliente..." onkeyup="filtrar()">
+
+<input
+type="text"
+id="buscar"
+placeholder="Buscar cliente..."
+onkeyup="filtrar()">
+
+<div class="table-wrap">
+
 <table>
+
 <thead>
+
 <tr>
 <th>Orden</th>
 <th>Fecha</th>
@@ -122,37 +335,159 @@ background:#111827;
 <th>Monto</th>
 <th>Acciones</th>
 </tr>
+
 </thead>
+
 <tbody id="lista"></tbody>
+
 </table>
+
 </div>
+
+</div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="supabase.js"></script>
+
 <script>
+
+const SUPABASE_URL =
+"https://qcwsyrqxtfidbeyzenzj.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_uG0zRI9OpsbWGcJsEIapgw_9zxoicUJ";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
 let datos = [];
 
+verificarSesion();
+
+async function verificarSesion(){
+
+const { data } =
+await supabaseClient.auth.getSession();
+
+if(data.session){
+
+document.getElementById('loginBox')
+.style.display='none';
+
+cargarOrdenes();
+
+}
+
+}
+
+async function login(){
+
+const email =
+document.getElementById('email').value;
+
+const password =
+document.getElementById('password').value;
+
+document.getElementById('loginMsg')
+.innerHTML='⏳ Ingresando...';
+
+const { error } =
+await supabaseClient.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+if(error){
+
+document.getElementById('loginMsg')
+.innerHTML='❌ Datos incorrectos';
+
+return;
+
+}
+
+document.getElementById('loginBox')
+.style.display='none';
+
+cargarOrdenes();
+
+}
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+location.reload();
+
+}
+
 async function cargarOrdenes(){
-const { data, error } = await supabaseClient
+
+const { data, error } =
+await supabaseClient
 .from('ordenes')
 .select('*')
 .order('id',{ascending:false});
 
 if(error){
+
 console.log(error);
 return;
+
 }
+
 datos = data;
+
 renderizar(datos);
+
+actualizarStats();
+
+}
+
+function actualizarStats(){
+
+document.getElementById('totalOrdenes')
+.innerHTML = datos.length;
+
+document.getElementById('reparando')
+.innerHTML =
+datos.filter(i=>i.estado === 'En reparación').length;
+
+document.getElementById('entregados')
+.innerHTML =
+datos.filter(i=>i.estado === 'Entregado').length;
+
+let total = 0;
+
+datos.forEach(i=>{
+
+total += Number(i.monto || 0);
+
+});
+
+document.getElementById('ganancias')
+.innerHTML =
+'$' + total.toLocaleString();
+
 }
 
 function renderizar(listaDatos){
-const lista = document.getElementById('lista');
+
+const lista =
+document.getElementById('lista');
+
 lista.innerHTML='';
 
 listaDatos.forEach(i=>{
+
 let colorEstado = '#1e293b';
+
 if(i.estado === 'Recibido') colorEstado = '#3b82f6';
 if(i.estado === 'Diagnosticando') colorEstado = '#a855f7';
 if(i.estado === 'Esperando repuesto') colorEstado = '#f59e0b';
@@ -161,112 +496,250 @@ if(i.estado === 'Listo para retirar') colorEstado = '#84cc16';
 if(i.estado === 'Entregado') colorEstado = '#64748b';
 
 lista.innerHTML += `
+
 <tr>
+
 <td><b>${i.orden || ''}</b></td>
+
 <td>${i.fecha ? i.fecha.split(' ')[0] : ''}</td>
+
 <td>${i.cliente || ''}</td>
+
 <td>${i.equipo || ''}</td>
+
 <td>
-<select onchange="actualizarEstado(${i.id}, this.value)" style="background:${colorEstado}; color:white; border:none; padding:6px; border-radius:6px; cursor:pointer; font-weight:bold; font-size:13px;">
+
+<select
+onchange="actualizarEstado(${i.id}, this.value)"
+style="
+background:${colorEstado};
+color:white;
+border:none;
+padding:6px;
+border-radius:6px;
+font-weight:bold;
+">
+
 <option ${i.estado === 'Recibido' ? 'selected' : ''}>Recibido</option>
 <option ${i.estado === 'Diagnosticando' ? 'selected' : ''}>Diagnosticando</option>
 <option ${i.estado === 'Esperando repuesto' ? 'selected' : ''}>Esperando repuesto</option>
 <option ${i.estado === 'En reparación' ? 'selected' : ''}>En reparación</option>
 <option ${i.estado === 'Listo para retirar' ? 'selected' : ''}>Listo para retirar</option>
 <option ${i.estado === 'Entregado' ? 'selected' : ''}>Entregado</option>
+
 </select>
+
 </td>
+
 <td>
-<div style="display:flex; align-items:center; gap:3px;">
+
+<div style="display:flex;align-items:center;gap:3px;">
+
 <span>$</span>
-<input type="number" value="${i.monto || ''}" onchange="actualizarMonto(${i.id},this.value)" style="width:90px; padding:6px; background:#111827; border:1px solid #1e293b; border-radius:6px; color:white;">
+
+<input
+type="number"
+value="${i.monto || ''}"
+onchange="actualizarMonto(${i.id},this.value)"
+style="
+width:90px;
+padding:6px;
+background:#111827;
+border:1px solid #1e293b;
+border-radius:6px;
+color:white;
+">
+
 </div>
+
 </td>
+
 <td>
-<button onclick="imprimir(${i.id})" style="background:#38bdf8; color:#020617; padding:6px 10px; border-radius:6px;">PDF</button>
-<button class="btn-delete" onclick="eliminar(${i.id})" style="padding:6px 10px; border-radius:6px;">Eliminar</button>
+
+<button
+onclick="imprimir(${i.id})"
+style="
+background:#38bdf8;
+color:#020617;
+padding:6px 10px;
+border-radius:6px;
+">
+
+PDF
+
+</button>
+
+<button
+class="btn-delete"
+onclick="eliminar(${i.id})"
+style="
+padding:6px 10px;
+border-radius:6px;
+">
+
+Eliminar
+
+</button>
+
 </td>
+
 </tr>
+
 `;
+
 });
+
 }
 
 function filtrar(){
-const texto = document.getElementById('buscar').value.toLowerCase();
-const filtrados = datos.filter(i=> (i.cliente || '').toLowerCase().includes(texto));
+
+const texto =
+document.getElementById('buscar')
+.value.toLowerCase();
+
+const filtrados =
+datos.filter(i=>
+
+(i.cliente || '')
+.toLowerCase()
+.includes(texto)
+
+);
+
 renderizar(filtrados);
+
 }
 
 async function guardar(){
+
 const item = {
-orden: 'LDO-' + Math.floor(Math.random()*999999),
-fecha: new Date().toLocaleString(),
-cliente: document.getElementById('cliente').value,
-equipo: document.getElementById('equipo').value,
-telefono: document.getElementById('telefono').value,
-monto: document.getElementById('monto').value,
-estado: document.getElementById('estado').value,
+
+orden:
+'LDO-' + Date.now(),
+
+fecha:
+new Date().toLocaleString(),
+
+cliente:
+document.getElementById('cliente').value,
+
+equipo:
+document.getElementById('equipo').value,
+
+telefono:
+document.getElementById('telefono').value,
+
+monto:
+document.getElementById('monto').value,
+
+estado:
+document.getElementById('estado').value,
+
 falla:''
+
 };
 
-const { error } = await supabaseClient.from('ordenes').insert([item]);
+const { error } =
+await supabaseClient
+.from('ordenes')
+.insert([item]);
+
 if(error){
+
 alert('ERROR');
 console.log(error);
 return;
+
 }
+
 alert('GUARDADO');
+
 document.getElementById('cliente').value='';
 document.getElementById('equipo').value='';
 document.getElementById('telefono').value='';
 document.getElementById('monto').value='';
+
 cargarOrdenes();
+
 }
 
 function imprimir(id){
-const item = datos.find(i=>i.id===id);
-const ventana = window.open('','_blank');
+
+const item =
+datos.find(i=>i.id===id);
+
+const ventana =
+window.open('','_blank');
+
 ventana.document.write(`
+
 <h1>COMPROBANTE LDO</h1>
+
 <p><b>Orden:</b> ${item.orden}</p>
+
 <p><b>Fecha:</b> ${item.fecha}</p>
+
 <p><b>Cliente:</b> ${item.cliente}</p>
+
 <p><b>Equipo:</b> ${item.equipo}</p>
+
 <p><b>Estado:</b> ${item.estado}</p>
+
 <p><b>Monto:</b> $${item.monto}</p>
+
 `);
+
 ventana.print();
+
 }
 
 async function actualizarMonto(id,monto){
-await supabaseClient.from('ordenes').update({monto:monto}).eq('id',id);
+
+await supabaseClient
+.from('ordenes')
+.update({monto:monto})
+.eq('id',id);
+
+cargarOrdenes();
+
 }
 
 async function actualizarEstado(id,nuevoEstado){
-const { error } = await supabaseClient.from('ordenes').update({estado:nuevoEstado}).eq('id',id);
+
+const { error } =
+await supabaseClient
+.from('ordenes')
+.update({estado:nuevoEstado})
+.eq('id',id);
+
 if(error){
-console.log("Error al cambiar estado:", error);
-} else {
+
+console.log(error);
+
+}else{
+
 cargarOrdenes();
+
 }
+
 }
 
 async function eliminar(id){
+
 if(confirm('¿Seguro que deseas eliminar esta orden?')){
-await supabaseClient.from('ordenes').delete().eq('id',id);
+
+await supabaseClient
+.from('ordenes')
+.delete()
+.eq('id',id);
+
 cargarOrdenes();
-}
+
 }
 
-function login(){
-const pass = document.getElementById('password').value;
-if(pass === '1234'){
-document.getElementById('loginBox').style.display='none';
-cargarOrdenes(); // Solo descarga los datos de Supabase si la contraseña es correcta
-}else{
-alert('Contraseña incorrecta');
 }
-}
+
 </script>
+
 </body>
-</html>
+  </html>

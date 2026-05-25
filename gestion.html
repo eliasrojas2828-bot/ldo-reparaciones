@@ -348,9 +348,15 @@ style="width:100px;height:100px;object-fit:cover;border-radius:10px;margin-botto
 📦 Stock: ${p.stock}
 
 <button
-style="float:right;background:red;color:white"
+style="float:right;background:red;color:white;margin-left:5px"
 onclick="eliminarProducto(${p.id})">
 Eliminar
+</button>
+
+<button
+style="float:right;background:#38bdf8;color:white"
+onclick="editarProducto(${p.id})">
+Editar
 </button>
 
 </div>
@@ -415,6 +421,31 @@ cargarProductos();
 
 }
 
+async function editarProducto(id){
+
+const p = productos.find(x => x.id === id);
+
+const nombre = prompt('Nombre:', p.nombre);
+if(nombre === null) return;
+
+const precio = prompt('Precio:', p.precio);
+if(precio === null) return;
+
+const stock = prompt('Stock:', p.stock);
+if(stock === null) return;
+
+await supabaseClient
+.from('productos')
+.update({
+nombre:nombre,
+precio:precio,
+stock:stock
+})
+.eq('id',id);
+
+cargarProductos();
+
+}
 async function eliminarProducto(id){
 
 if(!confirm('Eliminar producto?')) return;

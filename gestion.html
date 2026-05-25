@@ -106,7 +106,15 @@ t.innerHTML+=`
 <td>${i.orden||''}</td>
 <td>${i.cliente||''}</td>
 <td>${i.equipo||''}</td>
-<td><a class="wa" target="_blank" href="https://wa.me/${i.telefono||''}">📲</a></td>
+<td>
+<a class="wa" target="_blank" href="https://wa.me/${i.telefono||''}">📲</a>
+
+<button onclick="enviarPresupuesto(${i.id})">💰</button>
+
+<button onclick="enviarReparado(${i.id})">🔧</button>
+
+<button onclick="enviarEntregado(${i.id})">📦</button>
+</td>
 <td>${icono(i.enciende)}</td>
 <td>${icono(i.carga)}</td>
 <td>${icono(i.imagen)}</td>
@@ -176,6 +184,85 @@ w.document.write(`
 <p><b>Monto:</b> $${i.monto}</p>
 `);
 w.print();
+}
+function enviarPresupuesto(id){
+
+const i = datos.find(x=>x.id===id);
+
+const mensaje = encodeURIComponent(
+`💰 PRESUPUESTO LDO\n\n`+
+`👋 Hola ${i.cliente}\n\n`+
+`📱 Equipo: ${i.equipo}\n\n`+
+`💵 Presupuesto: $${i.monto || 0}\n\n`+
+`✅ Si estás de acuerdo responder este mensaje para continuar.\n\n`+
+`🔧 LDO Servicio Técnico`
+);
+
+window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
+}
+function enviarPresupuesto(id){
+
+const i = datos.find(x=>x.id===id);
+
+const mensaje = encodeURIComponent(
+`💰 PRESUPUESTO LDO\n\n`+
+`👋 Hola ${i.cliente}\n\n`+
+`📱 Equipo: ${i.equipo}\n\n`+
+`💵 Presupuesto: $${i.monto || 0}\n\n`+
+`✅ Si estás de acuerdo responder este mensaje para continuar.\n\n`+
+`🔧 LDO Servicio Técnico`
+);
+
+window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
+}
+
+async function enviarReparado(id){
+
+const i = datos.find(x=>x.id===id);
+
+await supabaseClient
+.from('ordenes')
+.update({estado:'Listo para retirar'})
+.eq('id',id);
+
+const mensaje = encodeURIComponent(
+`🔧 LDO Servicio Técnico\n\n`+
+`👋 Hola ${i.cliente}\n\n`+
+`📱 Tu equipo ${i.equipo} ya fue reparado correctamente.\n\n`+
+`✅ Reparación finalizada\n`+
+`✅ Equipo probado\n`+
+`✅ Funcionando correctamente\n\n`+
+`📍 Estado: LISTO PARA RETIRAR\n\n`+
+`🙌 Gracias por confiar en LDO Servicio Técnico`
+);
+
+window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
+
+cargar();
+}
+
+async function enviarEntregado(id){
+
+const i = datos.find(x=>x.id===id);
+
+await supabaseClient
+.from('ordenes')
+.update({estado:'Entregado'})
+.eq('id',id);
+
+const mensaje = encodeURIComponent(
+`📦 ENTREGA REALIZADA\n\n`+
+`👋 Hola ${i.cliente}\n\n`+
+`📱 Equipo: ${i.equipo}\n\n`+
+`✅ Trabajo finalizado\n`+
+`✅ Equipo entregado correctamente\n\n`+
+`🔒 Conservá tu comprobante de garantía.\n\n`+
+`🙌 Gracias por elegir LDO Servicio Técnico`
+);
+
+window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
+
+cargar();
 }
 </script>
 </body>

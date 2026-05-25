@@ -131,7 +131,28 @@ t.innerHTML+=`
 <option ${i.estado==='Entregado'?'selected':''}>Entregado</option>
 </select>
 </td>
-<td><input type="number" value="${i.monto||''}" onchange="monto(${i.id},this.value)" style="width:90px"></td>
+<td>
+
+<input
+type="number"
+value="${i.monto||''}"
+onchange="monto(${i.id},this.value)"
+style="width:90px;margin-bottom:5px">
+
+<select onchange="guardarGarantia(${i.id},this.value)">
+<option value="">Garantía</option>
+<option value="Sí" ${i.garantia==='Sí'?'selected':''}>Sí</option>
+<option value="No" ${i.garantia==='No'?'selected':''}>No</option>
+</select>
+
+<input
+type="text"
+placeholder="Ej: 90 días"
+value="${i.tiempo_garantia||''}"
+onchange="guardarTiempoGarantia(${i.id},this.value)"
+style="width:120px;margin-top:5px">
+
+</td>
 <td>
 <button class="pdf" onclick="pdf(${i.id})">PDF</button>
 <button class="del" onclick="eliminar(${i.id})">X</button>
@@ -242,13 +263,34 @@ const mensaje = encodeURIComponent(
 `📱 Equipo: ${i.equipo}\n\n`+
 `✅ Trabajo finalizado\n`+
 `✅ Equipo entregado correctamente\n\n`+
-`🔒 Conservá tu comprobante de garantía.\n\n`+
+
+`🛡️ Garantía: ${i.garantia || 'No'}\n`+
+`⏳ Vigencia: ${i.tiempo_garantia || 'No especificada'}\n\n`+
+
+`🔒 Conservá este mensaje como comprobante de garantía.\n\n`+
 `🙌 Gracias por elegir LDO Servicio Técnico`
 );
 
 window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
 
 cargar();
+}
+async function guardarGarantia(id,valor){
+
+await supabaseClient
+.from('ordenes')
+.update({garantia:valor})
+.eq('id',id);
+
+}
+
+async function guardarTiempoGarantia(id,valor){
+
+await supabaseClient
+.from('ordenes')
+.update({tiempo_garantia:valor})
+.eq('id',id);
+
 }
 </script>
 </body>

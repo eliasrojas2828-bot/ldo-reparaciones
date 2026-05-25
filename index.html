@@ -5,83 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.png">
-<title>LDO Servicio Técnico</title>
+<title>LDO Servicio Técnico - Recepción Online</title>
+
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#020617;color:#e2e8f0}
-.container{max-width:900px;margin:auto;padding:20px}
-.card{background:#0f172a;padding:20px;border-radius:20px;margin:15px 0}
-.logo{width:180px;display:block;margin:auto;border-radius:20px}
+:root{
+--bg:#020617;
+--panel:#0f172a;
+--cyan:#38bdf8;
+--green:#84cc16;
+--text:#e2e8f0;
+}
+*{box-sizing:border-box}
+body{
+margin:0;padding:20px;
+background:linear-gradient(#0f172a,#020617);
+font-family:Arial,sans-serif;color:var(--text)
+}
+.container{max-width:900px;margin:auto}
+.card{
+background:rgba(15,23,42,.95);
+padding:24px;border-radius:22px;margin-bottom:20px
+}
+.logo{
+width:160px;height:160px;object-fit:cover;
+display:block;margin:auto;border-radius:24px
+}
 h1,h2{text-align:center}
-input,select,textarea,button{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:none}
-button{background:#06b6d4;color:white;font-weight:bold;cursor:pointer}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sub{text-align:center;opacity:.9}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:700px){.grid{grid-template-columns:1fr}}
+input,textarea,select,button{
+width:100%;padding:14px;border-radius:12px;
+border:none;margin-top:10px
+}
+input,textarea,select{background:#111827;color:white}
+button{
+background:linear-gradient(135deg,var(--green),var(--cyan));
+color:white;font-weight:bold;cursor:pointer
+}
+.check{background:#111827;padding:12px;border-radius:12px}
+.badge{
+display:inline-block;background:#111827;padding:8px 12px;
+border-radius:999px;margin:4px
+}
+.resultado{
+background:#111827;padding:15px;border-radius:12px;margin-top:10px
+}
 </style>
 </head>
 <body>
+
 <div class="container">
+
 <img src="icon.png" class="logo">
-<h1>LDO Servicio Técnico</h1>
 
 <div class="card">
-<h2>Consultar estado</h2>
-<input id="buscarOrden" placeholder="LDO-123456">
-<button onclick="consultarEstado()">Consultar</button>
+<h1>LDO Servicio Técnico</h1>
+<p class="sub">
+Recepción Online de Equipos<br>
+Completá el formulario para agilizar el diagnóstico.
+</p>
+
+<div style="text-align:center">
+<span class="badge">📱 Celulares</span>
+<span class="badge">🔋 Baterías</span>
+<span class="badge">⚡ Microsoldadura</span>
+<span class="badge">🖥️ Tablets</span>
+</div>
+</div>
+
+<div class="card">
+<h2>🔎 Consultar Estado</h2>
+
+<input id="buscarOrden" placeholder="Ej: LDO-1748000000">
+
+<button onclick="consultarEstado()">
+Consultar Orden
+</button>
+
 <div id="resultadoEstado"></div>
 </div>
 
 <div class="card">
-<h2>Nueva solicitud</h2>
-<input id="cliente" placeholder="Nombre completo">
-<input id="telefono" placeholder="WhatsApp">
-<input id="equipo" placeholder="Marca y modelo">
-<textarea id="falla" placeholder="Describe la falla"></textarea>
+
+<h2>📋 Recepción Técnica</h2>
+
+<input id="cliente" placeholder="👤 Nombre completo">
+
+<input id="telefono" placeholder="📲 WhatsApp">
 
 <div class="grid">
-<select id="enciende"><option>SÍ</option><option>NO</option></select>
-<select id="carga"><option>SÍ</option><option>NO</option></select>
-<select id="imagen"><option>SÍ</option><option>NO</option></select>
-<select id="mojo"><option>SÍ</option><option>NO</option></select>
+<input id="marca" placeholder="📱 Marca">
+<input id="modelo" placeholder="📱 Modelo">
 </div>
 
-<button onclick="enviar()">Enviar solicitud</button>
-<div id="msg"></div>
+<h3>⚡ Diagnóstico rápido</h3>
+
+<div class="grid">
+
+<div class="check">
+¿Enciende?
+<select id="enciende">
+<option>SÍ</option>
+<option>NO</option>
+</select>
 </div>
+
+<div class="check">
+¿Carga?
+<select id="carga">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+<div class="check">
+¿Da imagen?
+<select id="imagen">
+<option>SÍ</option>
+<option>NO</option>
+</select>
+</div>
+
+<div class="check">
+¿Se mojó?
+<select id="mojo">
+<option>NO</option>
+<option>SÍ</option>
+</select>
+</div>
+
+<div class="check">
+¿Se cayó?
+<select id="caida">
+<option>NO</option>
+<option>SÍ</option>
+</select>
+</div>
+
+</div>
+
+<textarea id="falla"
+placeholder="🛠️ Contanos exactamente qué pasó. Ej: Lo conecté al cargador y dejó de encender."></textarea>
+
+<button onclick="enviar()">
+🚀 Enviar Solicitud
+</button>
+
+<div id="msg"></div>
+
+</div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="supabase.js"></script>
+
 <script>
 async function consultarEstado(){
- const orden=document.getElementById('buscarOrden').value;
- const r=document.getElementById('resultadoEstado');
- const {data,error}=await supabaseClient.from('ordenes').select('*').eq('orden',orden).single();
- if(error||!data){r.innerHTML='Orden no encontrada';return;}
- r.innerHTML=`<p><b>${data.equipo}</b><br>Estado: ${data.estado}</p>`;
+
+const orden=document.getElementById('buscarOrden').value;
+const div=document.getElementById('resultadoEstado');
+
+if(!orden){
+div.innerHTML='⚠️ Ingresá una orden';
+return;
+}
+
+const {data,error}=await supabaseClient
+.from('ordenes')
+.select('*')
+.eq('orden',orden)
+.single();
+
+if(error || !data){
+div.innerHTML='<div class="resultado">❌ Orden no encontrada</div>';
+return;
+}
+
+div.innerHTML=`
+<div class="resultado">
+📌 <b>${data.orden}</b><br><br>
+👤 ${data.cliente}<br><br>
+📱 ${data.equipo || ''}<br><br>
+📍 Estado: <b>${data.estado}</b>
+</div>`;
 }
 
 async function enviar(){
- const cliente=clienteEl.value;
- const telefono=telefonoEl.value;
- const equipo=equipoEl.value;
- const falla=fallaEl.value;
- if(!cliente||!telefono||!equipo||!falla){msg.innerHTML='Completa todos los campos';return;}
- const item={
-  orden:'LDO-'+Date.now(),
-  fecha:new Date().toLocaleString(),
-  cliente,telefono,equipo,falla,
-  enciende:enciende.value,carga:carga.value,imagen:imagen.value,mojo:mojo.value,
-  estado:'Recibido',monto:''
- };
- const {error}=await supabaseClient.from('ordenes').insert([item]);
- if(error){msg.innerHTML='Error al guardar';return;}
- msg.innerHTML='Solicitud enviada. Orden: <b>'+item.orden+'</b>';
+
+const cliente=document.getElementById('cliente').value;
+const telefono=document.getElementById('telefono').value;
+const marca=document.getElementById('marca').value;
+const modelo=document.getElementById('modelo').value;
+const enciende=document.getElementById('enciende').value;
+const carga=document.getElementById('carga').value;
+const imagen=document.getElementById('imagen').value;
+const mojo=document.getElementById('mojo').value;
+const caida=document.getElementById('caida').value;
+const falla=document.getElementById('falla').value;
+
+if(!cliente||!telefono||!marca||!modelo||!falla){
+document.getElementById('msg').innerHTML='⚠️ Completá todos los campos';
+return;
 }
-const clienteEl=document.getElementById('cliente');
-const telefonoEl=document.getElementById('telefono');
-const equipoEl=document.getElementById('equipo');
-const fallaEl=document.getElementById('falla');
-const msg=document.getElementById('msg');
+
+const orden='LDO-'+Date.now();
+
+const item={
+orden:orden,
+fecha:new Date().toLocaleString(),
+cliente:cliente,
+telefono:telefono,
+equipo:marca+' '+modelo,
+marca:marca,
+falla:falla,
+enciende:enciende,
+carga:carga,
+imagen:imagen,
+mojo:mojo,
+estado:'Recibido',
+monto:''
+};
+
+const {error}=await supabaseClient
+.from('ordenes')
+.insert([item]);
+
+if(error){
+document.getElementById('msg').innerHTML='❌ Error al guardar';
+return;
+}
+
+const mensaje=encodeURIComponent(
+'🔧 NUEVO INGRESO AL TALLER\n\n'+
+'📌 Orden: '+orden+'\n\n'+
+'👤 Cliente: '+cliente+'\n\n'+
+'📲 WhatsApp: '+telefono+'\n\n'+
+'📱 Equipo: '+marca+' '+modelo+'\n\n'+
+'⚡ Enciende: '+enciende+'\n'+
+'🔋 Carga: '+carga+'\n'+
+'🖼️ Imagen: '+imagen+'\n'+
+'💧 Mojado: '+mojo+'\n'+
+'💥 Caída: '+caida+'\n\n'+
+'🛠️ Falla: '+falla
+);
+
+document.getElementById('msg').innerHTML=
+'<div class="resultado">✅ Solicitud enviada<br><br>📌 Tu número de orden es:<br><b>'+orden+'</b></div>';
+
+window.open('https://wa.me/543756432527?text='+mensaje,'_blank');
+}
 </script>
+
 </body>
 </html>

@@ -355,27 +355,54 @@ Eliminar
 
 async function agregarProducto(){
 
-alert("Botón funcionando");
-
 const nombre=document.getElementById('prod_nombre').value;
 const precio=document.getElementById('prod_precio').value;
 const stock=document.getElementById('prod_stock').value;
+const archivo=document.getElementById('prod_foto').files[0];
 
-const {data,error}=await supabaseClient
-.from('productos')
-.insert([{
-nombre:nombre,
-precio:precio,
-stock:stock
-}]);
-
-if(error){
-alert("ERROR: "+error.message);
-console.log(error);
+if(!nombre || !precio){
+alert('Completa nombre y precio');
 return;
 }
 
-alert("Producto agregado");
+let foto='';
+
+if(archivo){
+
+const nombreArchivo =
+Date.now() + '_' + archivo.name;
+
+const {error:uploadError}=await supabaseClient
+.storage
+.from('productos')
+.upload(nombreArchivo,archivo);
+
+if(uploadError){
+alert(uploadError.message);
+return;
+}
+
+const {data} = supabaseClient
+.storage
+.from('productos')
+.getPublicUrl(nombreArchivo);
+
+foto=data.publicUrl;
+}
+
+await supabaseClient
+.from('productos')
+.insert([{
+nombre,
+precio,
+stock,
+foto
+}]);
+
+document.getElementById('prod_nombre').value='';
+document.getElementById('prod_precio').value='';
+document.getElementById('prod_stock').value='';
+document.getElementById('prod_foto').value='';
 
 cargarProductos();
 

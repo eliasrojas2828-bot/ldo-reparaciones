@@ -39,7 +39,22 @@ th,td{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
 
 <input id="buscar" placeholder="Buscar cliente, equipo u orden" style="width:100%;margin-top:15px" onkeyup="filtrar()">
 </div>
+<div class="card">
+<h2>🛒 Gestión de Productos</h2>
 
+<input id="prod_nombre" placeholder="Nombre del producto">
+
+<input id="prod_precio" type="number" placeholder="Precio">
+
+<input id="prod_stock" type="number" placeholder="Stock">
+
+<button onclick="agregarProducto()">
+➕ Agregar Producto
+</button>
+
+<div id="productosLista"></div>
+
+</div>
 <div class="card table-wrap">
 <table>
 <thead>
@@ -69,7 +84,8 @@ th,td{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
 <script src="supabase.js"></script>
 <script>
 let datos=[];
-
+let productos=[];
+  
 cargar();
 
 async function cargar(){
@@ -77,6 +93,7 @@ const {data,error}=await supabaseClient.from('ordenes').select('*').order('id',{
 if(error)return console.log(error);
 datos=data||[];
 render(datos);
+cargarProductos();
 stats();
 }
 
@@ -290,6 +307,84 @@ await supabaseClient
 .from('ordenes')
 .update({tiempo_garantia:valor})
 .eq('id',id);
+
+}
+async function cargarProductos(){
+
+const {data,error}=await supabaseClient
+.from('productos')
+.select('*')
+.order('id',{ascending:false});
+
+if(error) return;
+
+productos=data||[];
+
+const div=document.getElementById('productosLista');
+
+div.innerHTML='';
+
+productos.forEach(p=>{
+
+div.innerHTML+=`
+<div style="background:#111827;padding:10px;border-radius:10px;margin-top:10px">
+
+<b>${p.nombre}</b><br>
+
+💵 $${Number(p.precio).toLocaleString()}<br>
+
+📦 Stock: ${p.stock}
+
+<button
+style="float:right;background:red;color:white"
+onclick="eliminarProducto(${p.id})">
+Eliminar
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+async function agregarProducto(){
+
+const nombre=document.getElementById('prod_nombre').value;
+const precio=document.getElementById('prod_precio').value;
+const stock=document.getElementById('prod_stock').value;
+
+if(!nombre || !precio){
+alert('Completa nombre y precio');
+return;
+}
+
+await supabaseClient
+.from('productos')
+.insert([{
+nombre:nombre,
+precio:precio,
+stock:stock
+}]);
+
+document.getElementById('prod_nombre').value='';
+document.getElementById('prod_precio').value='';
+document.getElementById('prod_stock').value='';
+
+cargarProductos();
+
+}
+
+async function eliminarProducto(id){
+
+if(!confirm('Eliminar producto?')) return;
+
+await supabaseClient
+.from('productos')
+.delete()
+.eq('id',id);
+
+cargarProductos();
 
 }
 </script>

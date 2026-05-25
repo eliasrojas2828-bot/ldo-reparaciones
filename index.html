@@ -170,6 +170,62 @@ placeholder="🛠️ Contanos exactamente qué pasó. Ej: Lo conecté al cargado
 <script src="supabase.js"></script>
 
 <script>
+  
+cargarProductos();
+
+async function cargarProductos(){
+
+const {data,error}=await supabaseClient
+.from('productos')
+.select('*')
+.order('id',{ascending:false});
+
+if(error){
+console.log(error);
+return;
+}
+
+const div=document.getElementById('productos');
+
+div.innerHTML='';
+
+data.forEach(p=>{
+
+const mensaje=encodeURIComponent(
+`Hola, me interesa este producto:
+
+${p.nombre}`
+);
+
+div.innerHTML+=`
+<div class="card">
+
+<img
+src="${p.foto || ''}"
+style="width:100%;height:220px;object-fit:cover;border-radius:10px">
+
+<h3>${p.nombre}</h3>
+
+<p style="font-size:24px;color:#38bdf8">
+$${Number(p.precio).toLocaleString()}
+</p>
+
+<p>Stock: ${p.stock}</p>
+
+<a
+class="badge"
+target="_blank"
+href="https://wa.me/543756432527?text=${mensaje}">
+📲 Consultar
+</a>
+
+</div>
+`;
+
+});
+
+}
+  
 async function consultarEstado(){
 
 const orden=document.getElementById('buscarOrden').value;

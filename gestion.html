@@ -1,349 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Gestión LDO</title>
-
+<title>Gestión LDO V3</title>
 <style>
-
-:root{
---cyan:#38bdf8;
---green:#84cc16;
---dark:#020617;
---panel:#0f172a;
---text:#e2e8f0;
---danger:#ef4444;
-}
-
-*{
-box-sizing:border-box;
-}
-
-body{
-margin:0;
-padding:20px;
-background:
-radial-gradient(circle at top,#0f172a,#020617 70%);
-font-family:Arial,sans-serif;
-color:var(--text);
-min-height:100vh;
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-animation:fade .5s ease;
-}
-
-.card{
-background:rgba(15,23,42,.75);
-padding:22px;
-border-radius:22px;
-margin-bottom:20px;
-backdrop-filter:blur(12px);
-border:1px solid rgba(56,189,248,.08);
-box-shadow:0 0 25px rgba(56,189,248,.12);
-}
-
-h1{
-color:var(--cyan);
-margin-top:0;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-}
-
-input,
-select{
-width:100%;
-padding:13px;
-border:none;
-border-radius:12px;
-background:#111827;
-color:white;
-box-sizing:border-box;
-border:1px solid rgba(56,189,248,.08);
-}
-
-input:focus,
-select:focus{
-outline:none;
-border-color:#38bdf8;
-box-shadow:0 0 15px rgba(56,189,248,.2);
-}
-
-button{
-padding:12px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-font-weight:bold;
-transition:.3s;
-}
-
-button:hover{
-transform:translateY(-2px);
-}
-
-.btn-save{
-background:linear-gradient(135deg,#84cc16,#38bdf8);
-color:white;
-}
-
-.btn-delete{
-background:var(--danger);
-color:white;
-}
-
-.btn-logout{
-background:#ef4444;
-color:white;
-margin-top:10px;
-}
-
-.table-wrap{
-overflow-x:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-min-width:900px;
-}
-
-th,td{
-padding:12px;
-border-bottom:1px solid #1e293b;
-text-align:left;
-}
-
-tr:hover{
-background:#111827;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-margin-bottom:20px;
-}
-
-.stat{
-background:rgba(15,23,42,.7);
-padding:20px;
-border-radius:18px;
-border:1px solid rgba(56,189,248,.08);
-box-shadow:0 0 20px rgba(56,189,248,.08);
-}
-
-.stat h3{
-margin:0;
-font-size:15px;
-opacity:.8;
-}
-
-.stat p{
-font-size:28px;
-margin:10px 0 0;
-font-weight:bold;
-color:var(--cyan);
-}
-
-#loginBox{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#020617;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.login-card{
-background:#0f172a;
-padding:35px;
-border-radius:25px;
-width:340px;
-box-shadow:0 0 40px rgba(56,189,248,.2);
-border:1px solid rgba(56,189,248,.08);
-}
-
-.login-title{
-text-align:center;
-color:var(--cyan);
-margin-bottom:20px;
-font-size:28px;
-font-weight:bold;
-}
-
-.login-msg{
-text-align:center;
-margin-top:15px;
-font-size:14px;
-}
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
+body{margin:0;padding:20px;background:#020617;color:#e2e8f0;font-family:Arial}
+.container{max-width:1500px;margin:auto}
+.card{background:#0f172a;padding:20px;border-radius:20px;margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.stat{background:#111827;padding:15px;border-radius:15px;text-align:center}
+.stat p{font-size:28px;color:#38bdf8;font-weight:bold}
+input,select,button{padding:10px;border-radius:10px;border:none}
+input,select{background:#111827;color:white}
+button{cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
+.ok{color:#84cc16;font-weight:bold}
+.no{color:#ef4444;font-weight:bold}
+.wa{background:#25d366;color:white;padding:6px 10px;border-radius:8px;text-decoration:none}
+.del{background:#ef4444;color:white}
+.pdf{background:#38bdf8;color:#020617}
+@media(max-width:900px){.table-wrap{overflow:auto}}
 </style>
-
 </head>
 <body>
-
-<div id="loginBox">
-
-<div class="login-card">
-
-<div class="login-title">
-⚡ LDO LOGIN
-</div>
-
-<input
-type="email"
-id="email"
-placeholder="Correo">
-
-<input
-type="password"
-id="password"
-placeholder="Contraseña"
-style="margin-top:12px;">
-
-<button
-class="btn-save"
-onclick="login()"
-style="width:100%;margin-top:18px;">
-
-INGRESAR
-
-</button>
-
-<div
-id="loginMsg"
-class="login-msg">
-</div>
-
-</div>
-
-</div>
-
 <div class="container">
 
+<div class="card">
+<h1>⚡ Gestión LDO V3</h1>
+
 <div class="stats">
-
-<div class="stat">
-<h3>Total órdenes</h3>
-<p id="totalOrdenes">0</p>
+<div class="stat"><h3>Total</h3><p id="total">0</p></div>
+<div class="stat"><h3>Reparando</h3><p id="rep">0</p></div>
+<div class="stat"><h3>Entregados</h3><p id="ent">0</p></div>
+<div class="stat"><h3>Ganancias</h3><p id="gan">$0</p></div>
 </div>
 
-<div class="stat">
-<h3>Reparando</h3>
-<p id="reparando">0</p>
+<input id="buscar" placeholder="Buscar cliente, equipo u orden" style="width:100%;margin-top:15px" onkeyup="filtrar()">
 </div>
 
-<div class="stat">
-<h3>Entregados</h3>
-<p id="entregados">0</p>
-</div>
-
-<div class="stat">
-<h3>Ganancias</h3>
-<p id="ganancias">$0</p>
-</div>
-
-</div>
-
-<div class="card">
-
-<h1>GESTIÓN INTERNA LDO</h1>
-
-<button
-class="btn-logout"
-onclick="logout()">
-Cerrar sesión
-</button>
-
-<div class="grid" style="margin-top:20px;">
-
-<input type="text" id="cliente" placeholder="Cliente">
-
-<input type="text" id="equipo" placeholder="Equipo">
-
-<input type="tel" id="telefono" placeholder="WhatsApp">
-
-<input type="number" id="monto" placeholder="Monto">
-
-<select id="estado">
-<option>Recibido</option>
-<option>Diagnosticando</option>
-<option>Esperando repuesto</option>
-<option>En reparación</option>
-<option>Listo para retirar</option>
-<option>Entregado</option>
-</select>
-
-<button
-class="btn-save"
-onclick="guardar()">
-
-GUARDAR
-
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<input
-type="text"
-id="buscar"
-placeholder="Buscar cliente..."
-onkeyup="filtrar()">
-
-<div class="table-wrap">
-
+<div class="card table-wrap">
 <table>
-
 <thead>
-
 <tr>
 <th>Orden</th>
-<th>Fecha</th>
 <th>Cliente</th>
 <th>Equipo</th>
+<th>WhatsApp</th>
+<th>⚡</th>
+<th>🔋</th>
+<th>🖼️</th>
+<th>💧</th>
+<th>💥</th>
+<th>Falla</th>
 <th>Estado</th>
 <th>Monto</th>
 <th>Acciones</th>
 </tr>
-
 </thead>
-
 <tbody id="lista"></tbody>
-
 </table>
-
-</div>
-
 </div>
 
 </div>
@@ -351,385 +68,115 @@ onkeyup="filtrar()">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="supabase.js"></script>
 <script>
+let datos=[];
 
+cargar();
 
-
-let datos = [];
-
-verificarSesion();
-
-async function verificarSesion(){
-
-const { data } =
-await supabaseClient.auth.getSession();
-
-if(data.session){
-
-document.getElementById('loginBox')
-.style.display='none';
-
-cargarOrdenes();
-
+async function cargar(){
+const {data,error}=await supabaseClient.from('ordenes').select('*').order('id',{ascending:false});
+if(error)return console.log(error);
+datos=data||[];
+render(datos);
+stats();
 }
 
-}
+function stats(){
+document.getElementById('total').innerHTML=datos.length;
+document.getElementById('rep').innerHTML=datos.filter(i=>i.estado==='En reparación').length;
+document.getElementById('ent').innerHTML=datos.filter(i=>i.estado==='Entregado').length;
 
-async function login(){
-
-const email =
-document.getElementById('email').value;
-
-const password =
-document.getElementById('password').value;
-
-document.getElementById('loginMsg')
-.innerHTML='⏳ Ingresando...';
-
-const { error } =
-await supabaseClient.auth.signInWithPassword({
-
-email,
-password
-
-});
-
-if(error){
-
-document.getElementById('loginMsg')
-.innerHTML='❌ Datos incorrectos';
-
-return;
-
-}
-
-document.getElementById('loginBox')
-.style.display='none';
-
-cargarOrdenes();
-
-}
-
-async function logout(){
-
-await supabaseClient.auth.signOut();
-
-location.reload();
-
-}
-
-async function cargarOrdenes(){
-
-const { data, error } =
-await supabaseClient
-.from('ordenes')
-.select('*')
-.order('id',{ascending:false});
-
-if(error){
-
-console.log(error);
-return;
-
-}
-
-datos = data;
-
-renderizar(datos);
-
-actualizarStats();
-
-}
-
-function actualizarStats(){
-
-document.getElementById('totalOrdenes')
-.innerHTML = datos.length;
-
-document.getElementById('reparando')
-.innerHTML =
-datos.filter(i=>i.estado === 'En reparación').length;
-
-document.getElementById('entregados')
-.innerHTML =
-datos.filter(i=>i.estado === 'Entregado').length;
-
-let total = 0;
-
+let g=0;
 datos.forEach(i=>{
-
-total += Number(i.monto || 0);
-
+if(i.estado==='Entregado') g+=Number(i.monto||0);
 });
-
-document.getElementById('ganancias')
-.innerHTML =
-'$' + total.toLocaleString();
-
+document.getElementById('gan').innerHTML='$'+g.toLocaleString();
 }
 
-function renderizar(listaDatos){
+function icono(v){
+return (v==='SÍ'||v==='SI') ? '<span class="ok">🟢</span>' : '<span class="no">🔴</span>';
+}
 
-const lista =
-document.getElementById('lista');
+function render(arr){
+const t=document.getElementById('lista');
+t.innerHTML='';
 
-lista.innerHTML='';
-
-listaDatos.forEach(i=>{
-
-let colorEstado = '#1e293b';
-
-if(i.estado === 'Recibido') colorEstado = '#3b82f6';
-if(i.estado === 'Diagnosticando') colorEstado = '#a855f7';
-if(i.estado === 'Esperando repuesto') colorEstado = '#f59e0b';
-if(i.estado === 'En reparación') colorEstado = '#06b6d4';
-if(i.estado === 'Listo para retirar') colorEstado = '#84cc16';
-if(i.estado === 'Entregado') colorEstado = '#64748b';
-
-lista.innerHTML += `
-
+arr.forEach(i=>{
+t.innerHTML+=`
 <tr>
-
-<td><b>${i.orden || ''}</b></td>
-
-<td>${i.fecha ? i.fecha.split(' ')[0] : ''}</td>
-
-<td>${i.cliente || ''}</td>
-
-<td>${i.equipo || ''}</td>
-
+<td>${i.orden||''}</td>
+<td>${i.cliente||''}</td>
+<td>${i.equipo||''}</td>
+<td><a class="wa" target="_blank" href="https://wa.me/${i.telefono||''}">📲</a></td>
+<td>${icono(i.enciende)}</td>
+<td>${icono(i.carga)}</td>
+<td>${icono(i.imagen)}</td>
+<td>${icono(i.mojo)}</td>
+<td>${icono(i.caida)}</td>
+<td>${i.falla||''}</td>
 <td>
-
-<select
-onchange="actualizarEstado(${i.id}, this.value)"
-style="
-background:${colorEstado};
-color:white;
-border:none;
-padding:6px;
-border-radius:6px;
-font-weight:bold;
-">
-
-<option ${i.estado === 'Recibido' ? 'selected' : ''}>Recibido</option>
-<option ${i.estado === 'Diagnosticando' ? 'selected' : ''}>Diagnosticando</option>
-<option ${i.estado === 'Esperando repuesto' ? 'selected' : ''}>Esperando repuesto</option>
-<option ${i.estado === 'En reparación' ? 'selected' : ''}>En reparación</option>
-<option ${i.estado === 'Listo para retirar' ? 'selected' : ''}>Listo para retirar</option>
-<option ${i.estado === 'Entregado' ? 'selected' : ''}>Entregado</option>
-
+<select onchange="estado(${i.id},this.value)">
+<option ${i.estado==='Recibido'?'selected':''}>Recibido</option>
+<option ${i.estado==='Diagnosticando'?'selected':''}>Diagnosticando</option>
+<option ${i.estado==='Esperando repuesto'?'selected':''}>Esperando repuesto</option>
+<option ${i.estado==='En reparación'?'selected':''}>En reparación</option>
+<option ${i.estado==='Listo para retirar'?'selected':''}>Listo para retirar</option>
+<option ${i.estado==='Entregado'?'selected':''}>Entregado</option>
 </select>
-
 </td>
-
+<td><input type="number" value="${i.monto||''}" onchange="monto(${i.id},this.value)" style="width:90px"></td>
 <td>
-
-<div style="display:flex;align-items:center;gap:3px;">
-
-<span>$</span>
-
-<input
-type="number"
-value="${i.monto || ''}"
-onchange="actualizarMonto(${i.id},this.value)"
-style="
-width:90px;
-padding:6px;
-background:#111827;
-border:1px solid #1e293b;
-border-radius:6px;
-color:white;
-">
-
-</div>
-
+<button class="pdf" onclick="pdf(${i.id})">PDF</button>
+<button class="del" onclick="eliminar(${i.id})">X</button>
 </td>
-
-<td>
-
-<button
-onclick="imprimir(${i.id})"
-style="
-background:#38bdf8;
-color:#020617;
-padding:6px 10px;
-border-radius:6px;
-">
-
-PDF
-
-</button>
-
-<button
-class="btn-delete"
-onclick="eliminar(${i.id})"
-style="
-padding:6px 10px;
-border-radius:6px;
-">
-
-Eliminar
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
+</tr>`;
 });
-
 }
 
 function filtrar(){
-
-const texto =
-document.getElementById('buscar')
-.value.toLowerCase();
-
-const filtrados =
-datos.filter(i=>
-
-(i.cliente || '')
-.toLowerCase()
-.includes(texto)
-
-);
-
-renderizar(filtrados);
-
+const b=document.getElementById('buscar').value.toLowerCase();
+render(datos.filter(i=>
+(i.cliente||'').toLowerCase().includes(b)||
+(i.equipo||'').toLowerCase().includes(b)||
+(i.orden||'').toLowerCase().includes(b)
+));
 }
 
-async function guardar(){
-
-const item = {
-
-orden:
-'LDO-' + Date.now(),
-
-fecha:
-new Date().toLocaleString(),
-
-cliente:
-document.getElementById('cliente').value,
-
-equipo:
-document.getElementById('equipo').value,
-
-telefono:
-document.getElementById('telefono').value,
-
-monto:
-document.getElementById('monto').value,
-
-estado:
-document.getElementById('estado').value,
-
-falla:''
-
-};
-
-const { error } =
-await supabaseClient
-.from('ordenes')
-.insert([item]);
-
-if(error){
-
-alert('ERROR');
-console.log(error);
-return;
-
+async function estado(id,v){
+await supabaseClient.from('ordenes').update({estado:v}).eq('id',id);
+cargar();
 }
 
-alert('GUARDADO');
-
-document.getElementById('cliente').value='';
-document.getElementById('equipo').value='';
-document.getElementById('telefono').value='';
-document.getElementById('monto').value='';
-
-cargarOrdenes();
-
-}
-
-function imprimir(id){
-
-const item =
-datos.find(i=>i.id===id);
-
-const ventana =
-window.open('','_blank');
-
-ventana.document.write(`
-
-<h1>COMPROBANTE LDO</h1>
-
-<p><b>Orden:</b> ${item.orden}</p>
-
-<p><b>Fecha:</b> ${item.fecha}</p>
-
-<p><b>Cliente:</b> ${item.cliente}</p>
-
-<p><b>Equipo:</b> ${item.equipo}</p>
-
-<p><b>Estado:</b> ${item.estado}</p>
-
-<p><b>Monto:</b> $${item.monto}</p>
-
-`);
-
-ventana.print();
-
-}
-
-async function actualizarMonto(id,monto){
-
-await supabaseClient
-.from('ordenes')
-.update({monto:monto})
-.eq('id',id);
-
-cargarOrdenes();
-
-}
-
-async function actualizarEstado(id,nuevoEstado){
-
-const { error } =
-await supabaseClient
-.from('ordenes')
-.update({estado:nuevoEstado})
-.eq('id',id);
-
-if(error){
-
-console.log(error);
-
-}else{
-
-cargarOrdenes();
-
-}
-
+async function monto(id,v){
+await supabaseClient.from('ordenes').update({monto:v}).eq('id',id);
+cargar();
 }
 
 async function eliminar(id){
-
-if(confirm('¿Seguro que deseas eliminar esta orden?')){
-
-await supabaseClient
-.from('ordenes')
-.delete()
-.eq('id',id);
-
-cargarOrdenes();
-
+if(!confirm('Eliminar orden?')) return;
+await supabaseClient.from('ordenes').delete().eq('id',id);
+cargar();
 }
 
+function pdf(id){
+const i=datos.find(x=>x.id===id);
+const w=window.open('','_blank');
+w.document.write(`
+<h1>LDO Servicio Técnico</h1>
+<p><b>Orden:</b> ${i.orden}</p>
+<p><b>Cliente:</b> ${i.cliente}</p>
+<p><b>WhatsApp:</b> ${i.telefono}</p>
+<p><b>Equipo:</b> ${i.equipo}</p>
+<p><b>Enciende:</b> ${i.enciende}</p>
+<p><b>Carga:</b> ${i.carga}</p>
+<p><b>Da imagen:</b> ${i.imagen}</p>
+<p><b>Se mojó:</b> ${i.mojo}</p>
+<p><b>Se cayó:</b> ${i.caida}</p>
+<p><b>Falla:</b> ${i.falla}</p>
+<p><b>Estado:</b> ${i.estado}</p>
+<p><b>Monto:</b> $${i.monto}</p>
+`);
+w.print();
 }
-
 </script>
-
 </body>
 </html>

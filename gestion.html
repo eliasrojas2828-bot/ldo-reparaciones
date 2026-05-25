@@ -359,13 +359,21 @@ alert('Completa nombre y precio');
 return;
 }
 
-await supabaseClient
+const {data,error}=await supabaseClient
 .from('productos')
 .insert([{
 nombre:nombre,
 precio:precio,
 stock:stock
 }]);
+
+if(error){
+console.log(error);
+alert(error.message);
+return;
+}
+
+alert('Producto agregado correctamente');
 
 document.getElementById('prod_nombre').value='';
 document.getElementById('prod_precio').value='';

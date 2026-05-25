@@ -348,17 +348,6 @@ Eliminar
 
 }
 
-const {data,error}=await supabaseClient
-.from('productos')
-.select('*')
-.order('id',{ascending:false});
-
-if(error){
-console.log(error);
-alert(error.message);
-return;
-}
-
 async function agregarProducto(){
 
 const nombre=document.getElementById('prod_nombre').value;

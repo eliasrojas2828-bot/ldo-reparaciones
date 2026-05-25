@@ -348,6 +348,47 @@ Eliminar
 
 }
 
+async function cargarProductos(){
+
+const {data,error}=await supabaseClient
+.from('productos')
+.select('*')
+.order('id',{ascending:false});
+
+if(error){
+console.log(error);
+return;
+}
+
+productos=data||[];
+
+const div=document.getElementById('productosLista');
+
+div.innerHTML='';
+
+productos.forEach(p=>{
+
+div.innerHTML+=`
+<div style="background:#111827;padding:10px;border-radius:10px;margin-top:10px">
+
+<b>${p.nombre}</b><br>
+
+💵 $${Number(p.precio).toLocaleString()}<br>
+
+📦 Stock: ${p.stock}
+
+<button
+style="float:right;background:red;color:white"
+onclick="eliminarProducto(${p.id})">
+Eliminar
+</button>
+
+</div>
+`;
+
+});
+
+}
 async function agregarProducto(){
 
 const nombre=document.getElementById('prod_nombre').value;

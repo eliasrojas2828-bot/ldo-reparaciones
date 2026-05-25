@@ -73,6 +73,7 @@ async function cargarProductos(){
 const {data,error}=await supabaseClient
 .from('productos')
 .select('*')
+.gt('stock',0)
 .order('id',{ascending:false});
 
 if(error){

@@ -349,8 +349,8 @@ style="width:100px;height:100px;object-fit:cover;border-radius:10px;margin-botto
 
 <button
 style="float:right;background:red;color:white;margin-left:5px"
-onclick="eliminarProducto(${p.id})">
-Eliminar
+onclick="cambiarFoto(${p.id})">
+📷 Foto
 </button>
 
 <button
@@ -450,6 +450,53 @@ foto:nuevaFoto
 .eq('id',id);
 
 cargarProductos();
+
+}
+async function cambiarFoto(id){
+
+const input=document.createElement('input');
+
+input.type='file';
+input.accept='image/*';
+
+input.onchange=async()=>{
+
+const archivo=input.files[0];
+
+if(!archivo) return;
+
+const nombreArchivo=
+Date.now()+'_'+archivo.name;
+
+const {error:uploadError}=await supabaseClient
+.storage
+.from('productos')
+.upload(nombreArchivo,archivo);
+
+if(uploadError){
+alert(uploadError.message);
+return;
+}
+
+const {data}=supabaseClient
+.storage
+.from('productos')
+.getPublicUrl(nombreArchivo);
+
+await supabaseClient
+.from('productos')
+.update({
+foto:data.publicUrl
+})
+.eq('id',id);
+
+cargarProductos();
+
+alert('Foto actualizada');
+
+};
+
+input.click();
 
 }
 async function eliminarProducto(id){

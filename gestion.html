@@ -185,19 +185,6 @@ w.document.write(`
 `);
 w.print();
 }
-function enviarPresupuesto(id){
-
-const i = datos.find(x=>x.id===id);
-
-const mensaje = encodeURIComponent(
-`💰 PRESUPUESTO LDO\n\n`+
-`👋 Hola ${i.cliente}\n\n`+
-`📱 Equipo: ${i.equipo}\n\n`+
-`💵 Presupuesto: $${i.monto || 0}\n\n`+
-`✅ Si estás de acuerdo responder este mensaje para continuar.\n\n`+
-`🔧 LDO Servicio Técnico`
-);
-
 window.open(`https://wa.me/${i.telefono}?text=${mensaje}`);
 }
 function enviarPresupuesto(id){

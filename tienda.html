@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Tienda LDO</title>
+
+<style>
+body{
+background:#020617;
+color:white;
+font-family:Arial;
+margin:0;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#0f172a;
+padding:15px;
+border-radius:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.precio{
+font-size:24px;
+font-weight:bold;
+color:#38bdf8;
+}
+
+.whatsapp{
+display:inline-block;
+margin-top:10px;
+background:#25d366;
+color:white;
+padding:10px 15px;
+border-radius:10px;
+text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🛒 Tienda LDO</h1>
+
+<div id="productos" class="grid"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+async function cargarProductos(){
+
+const {data,error}=await supabaseClient
+.from('productos')
+.select('*')
+.order('id',{ascending:false});
+
+if(error){
+console.log(error);
+return;
+}
+
+const div=document.getElementById('productos');
+
+div.innerHTML='';
+
+data.forEach(p=>{
+
+const mensaje=encodeURIComponent(
+`Hola, me interesa este producto:\n\n${p.nombre}`
+);
+
+div.innerHTML+=`
+<div class="card">
+
+<img src="${p.foto || ''}">
+
+<h3>${p.nombre}</h3>
+
+<div class="precio">
+$${Number(p.precio).toLocaleString()}
+</div>
+
+<p>Stock: ${p.stock}</p>
+
+<a
+class="whatsapp"
+target="_blank"
+href="https://wa.me/5493756432527?text=${mensaje}">
+Consultar
+</a>
+
+</div>
+`;
+
+});
+
+}
+
+cargarProductos();
+
+</script>
+
+</body>
+</html>

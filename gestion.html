@@ -350,14 +350,11 @@ Eliminar
 
 async function agregarProducto(){
 
+alert("Botón funcionando");
+
 const nombre=document.getElementById('prod_nombre').value;
 const precio=document.getElementById('prod_precio').value;
 const stock=document.getElementById('prod_stock').value;
-
-if(!nombre || !precio){
-alert('Completa nombre y precio');
-return;
-}
 
 const {data,error}=await supabaseClient
 .from('productos')
@@ -368,16 +365,12 @@ stock:stock
 }]);
 
 if(error){
+alert("ERROR: "+error.message);
 console.log(error);
-alert(error.message);
 return;
 }
 
-alert('Producto agregado correctamente');
-
-document.getElementById('prod_nombre').value='';
-document.getElementById('prod_precio').value='';
-document.getElementById('prod_stock').value='';
+alert("Producto agregado");
 
 cargarProductos();
 

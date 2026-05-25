@@ -224,6 +224,7 @@ enciende:enciende,
 carga:carga,
 imagen:imagen,
 mojo:mojo,
+caida:caida,
 estado:'Recibido',
 monto:''
 };
@@ -254,7 +255,10 @@ const mensaje=encodeURIComponent(
 document.getElementById('msg').innerHTML=
 '<div class="resultado">✅ Solicitud enviada<br><br>📌 Tu número de orden es:<br><b>'+orden+'</b></div>';
 
-window.open('https://wa.me/543756432527?text='+mensaje,'_blank');
+setTimeout(() => {
+location.href =
+'https://wa.me/543756432527?text='+mensaje;
+}, 500);
 }
 </script>
 

@@ -434,12 +434,18 @@ if(precio === null) return;
 const stock = prompt('Stock:', p.stock);
 if(stock === null) return;
 
+const nuevaFoto = prompt(
+'URL de la nueva foto (dejar vacío para conservar la actual):',
+p.foto || ''
+);
+
 await supabaseClient
 .from('productos')
 .update({
 nombre:nombre,
 precio:precio,
-stock:stock
+stock:stock,
+foto:nuevaFoto
 })
 .eq('id',id);
 

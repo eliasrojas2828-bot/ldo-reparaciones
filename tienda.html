@@ -103,7 +103,11 @@ div.innerHTML+=`
 $${Number(p.precio).toLocaleString()}
 </div>
 
-<p>Stock: ${p.stock}</p>
+<p>
+${p.stock > 0
+? '🟢 Disponible (' + p.stock + ')'
+: '🔴 Agotado'}
+</p>
 
 <a
 class="whatsapp"

@@ -178,6 +178,25 @@ href="https://wa.me/543756432527?text=${mensaje}">
 
 }
 
+function buscarProductos(){
+
+const texto =
+document.getElementById('buscarProducto')
+.value
+.toLowerCase();
+
+const filtrados = todosProductos.filter(p =>
+
+(p.nombre || '')
+.toLowerCase()
+.includes(texto)
+
+);
+
+mostrarProductos(filtrados);
+
+}
+  
 cargarProductos();
 
 </script>

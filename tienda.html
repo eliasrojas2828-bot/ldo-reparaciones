@@ -60,7 +60,24 @@ text-decoration:none;
 <body>
 
 <h1>🛒 Tienda LDO</h1>
+<div style="text-align:center;margin-bottom:20px">
 
+<button onclick="filtrarCategoria('Todas')">Todos</button>
+
+<button onclick="filtrarCategoria('Celulares')">📱 Celulares</button>
+
+<button onclick="filtrarCategoria('Accesorios')">🔌 Accesorios</button>
+
+<button onclick="filtrarCategoria('Protección')">🛡️ Protección</button>
+
+<button onclick="filtrarCategoria('Electrónica')">⚡ Electrónica</button>
+
+<button onclick="filtrarCategoria('Ofertas')">🔥 Ofertas</button>
+
+<button onclick="filtrarCategoria('Novedades')">✨ Novedades</button>
+
+</div>
+  
 <div id="productos" class="grid"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

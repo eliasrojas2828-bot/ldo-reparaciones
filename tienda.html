@@ -109,12 +109,18 @@ ${p.stock > 0
 : '🔴 Agotado'}
 </p>
 
+${p.stock > 0 ? `
 <a
-class="whatsapp"
+class="badge"
 target="_blank"
-href="https://wa.me/5493756432527?text=${mensaje}">
-Consultar
+href="https://wa.me/543756432527?text=${mensaje}">
+📲 Consultar
 </a>
+` : `
+<div class="badge">
+🔴 Sin stock
+</div>
+`}
 
 </div>
 `;

@@ -137,16 +137,9 @@ div.innerHTML+=`
 
 <img src="${p.foto || ''}">
 
-const mensaje=encodeURIComponent(
-`Hola, me interesa este producto:\n\n${p.nombre}`
-);
-
-div.innerHTML+=`
-<div class="card">
-
-<img src="${p.foto || ''}">
-
 <h3>${p.nombre}</h3>
+
+<p>🏷️ ${p.categoria || 'Sin categoría'}</p>
 
 <div class="precio">
 $${Number(p.precio).toLocaleString()}
@@ -160,13 +153,13 @@ ${p.stock > 0
 
 ${p.stock > 0 ? `
 <a
-class="badge"
+class="whatsapp"
 target="_blank"
 href="https://wa.me/543756432527?text=${mensaje}">
 📲 Consultar
 </a>
 ` : `
-<div class="badge">
+<div class="whatsapp">
 🔴 Sin stock
 </div>
 `}

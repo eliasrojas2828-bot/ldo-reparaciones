@@ -85,6 +85,21 @@ text-decoration:none;
 
 <script>
 
+let todosProductos = [];
+
+function filtrarCategoria(categoria){
+
+const productos =
+categoria === 'Todas'
+? todosProductos
+: todosProductos.filter(
+p => p.categoria === categoria
+);
+
+mostrarProductos(productos);
+
+}
+  
 async function cargarProductos(){
 
 const {data,error}=await supabaseClient

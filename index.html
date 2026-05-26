@@ -198,6 +198,21 @@ placeholder="🛠️ Contanos exactamente qué pasó. Ej: Lo conecté al cargado
 <script src="supabase.js"></script>
 
 <script>
+
+let todosProductos = [];
+
+function filtrarCategoria(categoria){
+
+const productos =
+categoria === 'Todas'
+? todosProductos
+: todosProductos.filter(
+p => p.categoria === categoria
+);
+
+mostrarProductos(productos);
+
+}
   
 cargarProductos();
 

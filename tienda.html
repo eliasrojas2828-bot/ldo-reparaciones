@@ -114,11 +114,28 @@ alert(error.message);
 return;
 }
 
+todosProductos = data;
+
+mostrarProductos(data);
+
+}
+
+function mostrarProductos(data){
+
 const div=document.getElementById('productos');
 
 div.innerHTML='';
 
 data.forEach(p=>{
+
+const mensaje=encodeURIComponent(
+`Hola, me interesa este producto:\n\n${p.nombre}`
+);
+
+div.innerHTML+=`
+<div class="card">
+
+<img src="${p.foto || ''}">
 
 const mensaje=encodeURIComponent(
 `Hola, me interesa este producto:\n\n${p.nombre}`

@@ -129,6 +129,7 @@ const {data,error}=await supabaseClient
 .from('productos')
 .select('*')
 .gt('stock',0)
+.order('categoria',{ascending:true})
 .order('id',{ascending:false});
 
 if(error){

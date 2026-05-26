@@ -229,6 +229,14 @@ console.log(error);
 return;
 }
 
+todosProductos = data;
+
+mostrarProductos(data);
+
+}
+
+function mostrarProductos(data){
+
 const div=document.getElementById('productos');
 
 div.innerHTML='';

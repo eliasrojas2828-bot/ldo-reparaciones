@@ -528,7 +528,50 @@ await supabaseClient
 cargarProductos();
 
 }
+
+async function guardarEdicion(){
+
+const nombre =
+document.getElementById('edit_nombre').value;
+
+const precio =
+document.getElementById('edit_precio').value;
+
+const stock =
+document.getElementById('edit_stock').value;
+
+const categoria =
+document.getElementById('edit_categoria').value;
+
+const foto =
+document.getElementById('edit_foto').value;
+
+await supabaseClient
+.from('productos')
+.update({
+nombre:nombre,
+precio:precio,
+stock:stock,
+categoria:categoria,
+foto:foto
+})
+.eq('id',productoEditando);
+
+cerrarModal();
+
+cargarProductos();
+
+}
+
+function cerrarModal(){
+
+document.getElementById('modalEditar').style.display =
+'none';
+
+}
+
 </script>
+
 <div id="modalEditar" style="
 display:none;
 position:fixed;

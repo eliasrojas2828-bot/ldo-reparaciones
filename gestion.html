@@ -442,43 +442,32 @@ cargarProductos();
 
 }
 
-async function editarProducto(id){
+function editarProducto(id){
 
 const p = productos.find(x => x.id === id);
 
-const nombre = prompt('Nombre:', p.nombre);
-if(nombre === null) return;
+productoEditando = id;
 
-const precio = prompt('Precio:', p.precio);
-if(precio === null) return;
+document.getElementById('edit_nombre').value =
+p.nombre || '';
 
-const stock = prompt('Stock:', p.stock);
-if(stock === null) return;
+document.getElementById('edit_precio').value =
+p.precio || '';
 
-const categoria = prompt(
-'Categoría:',
-p.categoria || ''
-);
-  
-const nuevaFoto = prompt(
-'URL de la nueva foto (dejar vacío para conservar la actual):',
-p.foto || ''
-);
+document.getElementById('edit_stock').value =
+p.stock || '';
 
-await supabaseClient
-.from('productos')
-.update({
-nombre:nombre,
-precio:precio,
-stock:stock,
-categoria:categoria,
-foto:nuevaFoto
-})
-.eq('id',id);
+document.getElementById('edit_categoria').value =
+p.categoria || '';
 
-cargarProductos();
+document.getElementById('edit_foto').value =
+p.foto || '';
+
+document.getElementById('modalEditar').style.display =
+'flex';
 
 }
+
 async function cambiarFoto(id){
 
 const input=document.createElement('input');

@@ -593,6 +593,47 @@ document.getElementById('modalEditar').style.display =
 
 </script>
 
+function login(){
+
+const usuario =
+document.getElementById('usuario').value;
+
+const clave =
+document.getElementById('clave').value;
+
+if(
+usuario === 'admin' &&
+clave === '1234'
+){
+
+document.getElementById('loginBox').style.display =
+'none';
+
+document.getElementById('panel').style.display =
+'block';
+
+localStorage.setItem('ldo_login','ok');
+
+}else{
+
+document.getElementById('errorLogin').innerHTML =
+'❌ Usuario o contraseña incorrectos';
+
+}
+
+}
+
+if(localStorage.getItem('ldo_login') === 'ok'){
+
+document.getElementById('loginBox').style.display =
+'none';
+
+document.getElementById('panel').style.display =
+'block';
+
+}
+
+
 <div id="modalEditar" style="
 display:none;
 position:fixed;

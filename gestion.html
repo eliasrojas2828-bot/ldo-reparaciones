@@ -538,5 +538,70 @@ cargarProductos();
 
 }
 </script>
+<div id="modalEditar" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+z-index:999;
+justify-content:center;
+align-items:center;
+">
+
+<div style="
+background:#0f172a;
+padding:25px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+">
+
+<h2>✏️ Editar Producto</h2>
+
+<input id="edit_nombre" placeholder="Nombre">
+
+<input id="edit_precio" type="number" placeholder="Precio">
+
+<input id="edit_stock" type="number" placeholder="Stock">
+
+<select id="edit_categoria">
+
+<option value="Celulares">📱 Celulares</option>
+
+<option value="Accesorios">🔌 Accesorios</option>
+
+<option value="Protección">🛡️ Protección</option>
+
+<option value="Electrónica">⚡ Electrónica</option>
+
+<option value="Ofertas">🔥 Ofertas</option>
+
+<option value="Novedades">✨ Novedades</option>
+
+</select>
+
+<input id="edit_foto" placeholder="URL Foto">
+
+<div style="display:flex;gap:10px;margin-top:15px">
+
+<button
+style="background:#38bdf8;color:#020617;flex:1"
+onclick="guardarEdicion()">
+💾 Guardar
+</button>
+
+<button
+style="background:#ef4444;color:white;flex:1"
+onclick="cerrarModal()">
+❌ Cerrar
+</button>
+
+</div>
+
+</div>
+</div>
 </body>
 </html>

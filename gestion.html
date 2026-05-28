@@ -547,6 +547,26 @@ document.getElementById('edit_categoria').value;
 const foto =
 document.getElementById('edit_foto').value;
 
+if(foto.files.length > 0){
+
+const archivo = foto.files[0];
+
+const nombreArchivo =
+Date.now() + '-' + archivo.name;
+
+await supabaseClient.storage
+.from('productos')
+.upload(nombreArchivo,archivo);
+
+const {data:urlData} =
+supabaseClient.storage
+.from('productos')
+.getPublicUrl(nombreArchivo);
+
+fotoEditando = urlData.publicUrl;
+
+}
+
 await supabaseClient
 .from('productos')
 .update({

@@ -453,6 +453,11 @@ if(precio === null) return;
 const stock = prompt('Stock:', p.stock);
 if(stock === null) return;
 
+const categoria = prompt(
+'Categoría:',
+p.categoria || ''
+);
+  
 const nuevaFoto = prompt(
 'URL de la nueva foto (dejar vacío para conservar la actual):',
 p.foto || ''

@@ -369,6 +369,8 @@ style="width:100px;height:100px;object-fit:cover;border-radius:10px;margin-botto
 
 🏷️ ${p.categoria || 'Sin categoría'}<br>
 
+📝 ${p.descripcion || ''}<br>
+
 💵 $${Number(p.precio).toLocaleString()}<br>
 
 📦 Stock: ${p.stock}
@@ -702,7 +704,6 @@ max-width:400px;
 <option value="Ofertas">🔥 Ofertas</option>
 
 <option value="Novedades">✨ Novedades</option>
-
 </select>
 
 <textarea

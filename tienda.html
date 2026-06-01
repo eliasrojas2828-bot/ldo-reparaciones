@@ -148,6 +148,21 @@ placeholder="🔍 Buscar producto...">
 
 </div>
   
+  <div id="carritoBox" style="
+position:fixed;
+top:15px;
+right:15px;
+background:#38bdf8;
+color:#020617;
+padding:10px 15px;
+border-radius:20px;
+font-weight:bold;
+z-index:999;
+box-shadow:0 0 15px rgba(56,189,248,.5);
+">
+🛒 0
+</div>
+  
 <div id="productos" class="grid"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -156,6 +171,7 @@ placeholder="🔍 Buscar producto...">
 <script>
 
 let todosProductos = [];
+let carrito = [];
 
 function filtrarCategoria(categoria){
 
@@ -245,12 +261,15 @@ ${p.stock > 0
 </p>
 
 ${p.stock > 0 ? `
-<a
+<button
+onclick="agregarCarrito(${p.id})"
 class="whatsapp"
-target="_blank"
-href="https://wa.me/543756432527?text=${mensaje}">
-📲 Consultar
-</a>
+style="
+border:none;
+cursor:pointer;
+">
+🛒 Agregar
+</button>
 ` : `
 <div class="whatsapp">
 🔴 Sin stock
@@ -261,6 +280,24 @@ href="https://wa.me/543756432527?text=${mensaje}">
 `;
 
 });
+
+}
+
+function agregarCarrito(id){
+
+const producto =
+todosProductos.find(p => p.id === id);
+
+carrito.push(producto);
+
+actualizarCarrito();
+
+}
+
+function actualizarCarrito(){
+
+document.getElementById('carritoBox').innerHTML =
+`🛒 ${carrito.length}`;
 
 }
 

@@ -148,7 +148,10 @@ placeholder="🔍 Buscar producto...">
 
 </div>
   
-  <div id="carritoBox" style="
+<div
+id="carritoBox"
+onclick="verCarrito()"
+style="
 position:fixed;
 top:15px;
 right:15px;
@@ -159,6 +162,7 @@ border-radius:20px;
 font-weight:bold;
 z-index:999;
 box-shadow:0 0 15px rgba(56,189,248,.5);
+cursor:pointer;
 ">
 🛒 0
 </div>
@@ -298,6 +302,31 @@ function actualizarCarrito(){
 
 document.getElementById('carritoBox').innerHTML =
 `🛒 ${carrito.length}`;
+
+}
+
+function verCarrito(){
+
+if(carrito.length === 0){
+alert('El carrito está vacío');
+return;
+}
+
+let texto = '🛒 CARRITO\n\n';
+
+let total = 0;
+
+carrito.forEach(p=>{
+
+texto += `• ${p.nombre} - $${p.precio}\n`;
+
+total += Number(p.precio);
+
+});
+
+texto += `\n💰 Total: $${total.toLocaleString()}`;
+
+alert(texto);
 
 }
 

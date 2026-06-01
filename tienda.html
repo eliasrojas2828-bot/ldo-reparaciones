@@ -315,14 +315,20 @@ actualizarCarrito();
 }
 
 function actualizarCarrito(){
-  
-  localStorage.setItem(
+
+localStorage.setItem(
 'carritoLDO',
 JSON.stringify(carrito)
 );
 
+let total = 0;
+
+carrito.forEach(p=>{
+total += Number(p.precio) * (p.cantidad || 1);
+});
+
 document.getElementById('carritoBox').innerHTML =
-`🛒 ${carrito.length}`;
+`🛒 ${carrito.length} | $${total.toLocaleString()}`;
 
 }
 

@@ -175,6 +175,29 @@ font-size:14px;
 font-weight:bold;
 }
   
+  #menuBtn{
+width:70px;
+height:70px;
+border-radius:18px;
+background:#334155;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+cursor:pointer;
+margin-left:10px;
+}
+  
+  .menuLink{
+display:block;
+padding:15px;
+margin-bottom:10px;
+background:#111827;
+color:white;
+text-decoration:none;
+border-radius:12px;
+}
+  
 </style>
 </head>
 
@@ -194,6 +217,10 @@ LDO
 <div id="carritoBox" onclick="verCarrito()">
 🛒
 <span id="contadorCarrito">0</span>
+</div>
+
+<div id="menuBtn" onclick="abrirMenu()">
+☰
 </div>
 
 </div>
@@ -642,6 +669,20 @@ cargarProductos();
 
 actualizarCarrito();
 
+function abrirMenu(){
+
+document.getElementById('menuLateral').style.right =
+'0';
+
+}
+
+function cerrarMenu(){
+
+document.getElementById('menuLateral').style.right =
+'-320px';
+
+}
+
 </script>
 
 <div id="modalCarrito" style="
@@ -739,6 +780,40 @@ z-index:99999;
 box-shadow:0 0 20px rgba(34,197,94,.5);
 ">
 ✅ Producto agregado al carrito
+</div>
+
+<div id="menuLateral" style="
+position:fixed;
+top:0;
+right:-320px;
+width:300px;
+height:100%;
+background:#0f172a;
+z-index:99999;
+transition:.3s;
+padding:20px;
+box-sizing:border-box;
+">
+
+<h2>⚡ LDO Service</h2>
+
+<button onclick="cerrarMenu()"
+style="
+width:100%;
+padding:12px;
+margin-bottom:20px;
+background:#ef4444;
+color:white;
+border:none;
+border-radius:10px;
+">
+Cerrar
+</button>
+
+<a href="#" class="menuLink">🏠 Inicio</a>
+<a href="#" class="menuLink">🛒 Tienda</a>
+<a href="https://wa.me/543756432527" class="menuLink">📞 WhatsApp</a>
+
 </div>
 
 </body>

@@ -197,6 +197,21 @@ color:white;
 text-decoration:none;
 border-radius:12px;
 }
+
+.menuItem{
+padding:15px;
+border-radius:15px;
+background:#111827;
+margin-bottom:10px;
+font-size:18px;
+cursor:pointer;
+transition:.2s;
+}
+
+.menuItem:hover{
+transform:scale(1.03);
+background:#1e293b;
+}
   
 </style>
 </head>
@@ -671,29 +686,18 @@ actualizarCarrito();
 
 function abrirMenu(){
 
-document.getElementById('menuLateral').style.right =
-'0';
+const menu =
+document.getElementById('menuFloat');
+
+if(menu.style.display === 'block'){
+
+menu.style.display = 'none';
+
+}else{
+
+menu.style.display = 'block';
 
 }
-
-function cerrarMenu(){
-
-document.getElementById('menuLateral').style.right =
-'-320px';
-
-}
-
-function abrirMenu(){
-
-document.getElementById('menuLateral').style.right =
-'0';
-
-}
-
-function cerrarMenu(){
-
-document.getElementById('menuLateral').style.right =
-'-320px';
 
 }
 
@@ -796,37 +800,39 @@ box-shadow:0 0 20px rgba(34,197,94,.5);
 ✅ Producto agregado al carrito
 </div>
 
-<div id="menuLateral" style="
+<div id="menuFloat" style="
+display:none;
 position:fixed;
-top:0;
-right:-320px;
-width:300px;
-height:100%;
-background:#0f172a;
+top:95px;
+right:20px;
+width:260px;
+background:rgba(15,23,42,.95);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:15px;
 z-index:99999;
-transition:.3s;
-padding:20px;
-box-sizing:border-box;
+box-shadow:0 0 30px rgba(0,0,0,.5);
 ">
 
-<h2>⚡ LDO Service</h2>
+<div class="menuItem" onclick="verCarrito()">
+🛒 Ver carrito
+</div>
 
-<button onclick="cerrarMenu()"
-style="
-width:100%;
-padding:12px;
-margin-bottom:20px;
-background:#ef4444;
-color:white;
-border:none;
-border-radius:10px;
-">
-Cerrar
-</button>
+<div class="menuItem">
+📞 WhatsApp
+</div>
 
-<a href="#" class="menuLink">🏠 Inicio</a>
-<a href="#" class="menuLink">🛒 Tienda</a>
-<a href="https://wa.me/543756432527" class="menuLink">📞 WhatsApp</a>
+<div class="menuItem">
+📍 Ubicación
+</div>
+
+<div class="menuItem">
+⚡ Animaciones
+</div>
+
+<div class="menuItem">
+🌙 Tema oscuro
+</div>
 
 </div>
 

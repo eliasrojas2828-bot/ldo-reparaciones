@@ -412,6 +412,21 @@ verCarrito();
 
 }
 
+function vaciarCarrito(){
+
+if(!confirm('¿Vaciar todo el carrito?')){
+return;
+}
+
+carrito = [];
+
+localStorage.removeItem('carritoLDO');
+
+actualizarCarrito();
+
+cerrarCarrito();
+
+}
 
 function finalizarPedido(){
 

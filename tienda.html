@@ -123,7 +123,8 @@ Celulares • Fundas • Vidrios • Cargadores • Electrónica
 id="buscar"
 class="buscador"
 placeholder="🔍 Buscar producto...">
-  
+onkeyup="buscarProductos()">
+
 <div style="text-align:center;margin-bottom:20px">
 
 <h2 style="text-align:center">
@@ -443,7 +444,7 @@ window.open(
 function buscarProductos(){
 
 const texto =
-document.getElementById('buscarProducto')
+document.getElementById('buscar')
 .value
 .toLowerCase();
 

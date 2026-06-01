@@ -334,60 +334,79 @@ document.getElementById('carritoBox').innerHTML =
 
 function verCarrito(){
 
-if(carrito.length === 0){
-alert('El carrito está vacío');
-return;
-}
+const lista =
+document.getElementById('listaCarrito');
 
-let texto = '🛒 CARRITO\n\n';
+const totalBox =
+document.getElementById('totalCarrito');
+
+lista.innerHTML = '';
 
 let total = 0;
 
 carrito.forEach((p,index)=>{
 
-texto += `${index + 1}. ${p.nombre} x${p.cantidad} - $${(Number(p.precio) * p.cantidad).toLocaleString()}\n`;
+const subtotal =
+Number(p.precio) * p.cantidad;
 
-total += Number(p.precio) * p.cantidad;
+total += subtotal;
+
+lista.innerHTML += `
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#111827;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+">
+
+<div>
+<b>${p.nombre}</b><br>
+Cantidad: ${p.cantidad}<br>
+$${subtotal.toLocaleString()}
+</div>
+
+<button
+onclick="eliminarDelCarrito(${index})"
+style="
+background:#ef4444;
+color:white;
+border:none;
+padding:8px 10px;
+border-radius:8px;
+">
+❌
+</button>
+
+</div>
+`;
 
 });
 
-texto += `\n💰 Total: $${total.toLocaleString()}`;
+totalBox.innerHTML =
+`💰 Total: $${total.toLocaleString()}`;
 
-const accion = prompt(
-texto +
-'\n\nEscribí:\n' +
-'1 = Enviar WhatsApp\n' +
-'2 = Vaciar carrito\n' +
-'3 = Eliminar producto'
-);
+document.getElementById('modalCarrito').style.display =
+'flex';
 
-if(accion === '1'){
-finalizarPedido();
 }
 
-if(accion === '2'){
-carrito = [];
-actualizarCarrito();
-alert('🗑️ Carrito vaciado');
+function cerrarCarrito(){
+
+document.getElementById('modalCarrito').style.display =
+'none';
+
 }
 
-if(accion === '3'){
+function eliminarDelCarrito(index){
 
-const numero = prompt(
-'Ingresá el número del producto a eliminar'
-);
-
-const indice = Number(numero) - 1;
-
-if(indice >= 0 && indice < carrito.length){
-
-carrito.splice(indice,1);
+carrito.splice(index,1);
 
 actualizarCarrito();
 
-alert('✅ Producto eliminado');
-
-}
+verCarrito();
 
 }
 

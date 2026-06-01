@@ -103,27 +103,98 @@ z-index:998;
 background:#020617;
 padding:10px 0;
 }
+
+#headerLDO{
+position:sticky;
+top:0;
+z-index:9999;
+background:#0f172a;
+padding:15px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+.logoLDO{
+width:70px;
+height:70px;
+border-radius:18px;
+background:linear-gradient(135deg,#38bdf8,#84cc16);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:22px;
+color:white;
+}
+
+.infoLDO{
+text-align:center;
+flex:1;
+}
+
+.infoLDO h2{
+margin:0;
+}
+
+.infoLDO p{
+margin:5px 0 0;
+color:#38bdf8;
+font-weight:bold;
+}
+
+#carritoBox{
+width:70px;
+height:70px;
+border-radius:18px;
+background:#22c55e;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+position:relative;
+cursor:pointer;
+}
+
+#contadorCarrito{
+position:absolute;
+top:-8px;
+right:-8px;
+background:#ef4444;
+color:white;
+width:28px;
+height:28px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:14px;
+font-weight:bold;
+}
   
 </style>
 </head>
 
 <body>
 
-<div style="
-background:linear-gradient(135deg,#38bdf8,#84cc16);
-padding:30px;
-border-radius:20px;
-text-align:center;
-margin-bottom:20px;
-">
+<div id="headerLDO">
 
-<h1 style="margin:0;color:white">
-🛒 Tienda LDO
-</h1>
+<div class="logoLDO">
+LDO
+</div>
 
-<p style="margin-top:10px;color:white">
-Celulares • Fundas • Vidrios • Cargadores • Electrónica
-</p>
+<div class="infoLDO">
+<h2>LDO Service</h2>
+<p id="totalHeader">$0</p>
+</div>
+
+<div id="carritoBox" onclick="verCarrito()">
+🛒
+<span id="contadorCarrito">0</span>
+</div>
 
 </div>
 
@@ -356,8 +427,11 @@ carrito.forEach(p=>{
 total += Number(p.precio) * (p.cantidad || 1);
 });
 
-document.getElementById('carritoBox').innerHTML =
-`🛒 ${carrito.length} | $${total.toLocaleString()}`;
+document.getElementById('contadorCarrito').innerHTML =
+carrito.length;
+
+document.getElementById('totalHeader').innerHTML =
+'$' + total.toLocaleString();
 
 }
 

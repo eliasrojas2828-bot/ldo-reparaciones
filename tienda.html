@@ -366,8 +366,48 @@ margin-bottom:10px;
 
 <div>
 <b>${p.nombre}</b><br>
-Cantidad: ${p.cantidad}<br>
+
+<div style="
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:5px;
+">
+
+<button
+onclick="restarCantidad(${index})"
+style="
+background:#ef4444;
+color:white;
+border:none;
+border-radius:6px;
+padding:4px 8px;
+cursor:pointer;
+">
+➖
+</button>
+
+<b>${p.cantidad}</b>
+
+<button
+onclick="sumarCantidad(${index})"
+style="
+background:#22c55e;
+color:white;
+border:none;
+border-radius:6px;
+padding:4px 8px;
+cursor:pointer;
+">
+➕
+</button>
+
+</div>
+
+<div style="margin-top:5px">
 $${subtotal.toLocaleString()}
+</div>
+
 </div>
 
 <button
@@ -405,6 +445,34 @@ document.getElementById('modalCarrito').style.display =
 function eliminarDelCarrito(index){
 
 carrito.splice(index,1);
+
+actualizarCarrito();
+
+verCarrito();
+
+}
+
+function sumarCantidad(index){
+
+carrito[index].cantidad++;
+
+actualizarCarrito();
+
+verCarrito();
+
+}
+
+function restarCantidad(index){
+
+if(carrito[index].cantidad > 1){
+
+carrito[index].cantidad--;
+
+}else{
+
+carrito.splice(index,1);
+
+}
 
 actualizarCarrito();
 

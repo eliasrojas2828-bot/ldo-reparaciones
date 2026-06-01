@@ -292,6 +292,21 @@ cursor:pointer;
 }
 
 function agregarCarrito(id){
+  
+function mostrarToast(){
+
+const toast =
+document.getElementById('toastCarrito');
+
+toast.style.display = 'block';
+
+setTimeout(()=>{
+
+toast.style.display = 'none';
+
+},2000);
+
+}
 
 const existente =
 carrito.find(p => p.id === id);
@@ -311,6 +326,8 @@ cantidad:1
 });
 
 }
+
+mostrarToast();
 
 actualizarCarrito();
 
@@ -639,6 +656,22 @@ Cerrar
 
 </div>
 
+</div>
+
+<div id="toastCarrito" style="
+position:fixed;
+bottom:20px;
+right:20px;
+background:#22c55e;
+color:white;
+padding:15px 20px;
+border-radius:12px;
+font-weight:bold;
+display:none;
+z-index:99999;
+box-shadow:0 0 20px rgba(34,197,94,.5);
+">
+✅ Producto agregado al carrito
 </div>
 
 </body>

@@ -701,6 +701,50 @@ menu.style.display = 'block';
 
 }
 
+let temaOscuro = true;
+
+function toggleTema(){
+
+if(temaOscuro){
+
+document.body.style.background = '#f1f5f9';
+document.body.style.color = '#020617';
+
+temaOscuro = false;
+
+}else{
+
+document.body.style.background = '#020617';
+document.body.style.color = 'white';
+
+temaOscuro = true;
+
+}
+
+}
+
+let animacionesActivas = true;
+
+function toggleAnimaciones(){
+
+animacionesActivas = !animacionesActivas;
+
+if(animacionesActivas){
+
+document.body.style.scrollBehavior = 'smooth';
+
+alert('⚡ Animaciones activadas');
+
+}else{
+
+document.body.style.scrollBehavior = 'auto';
+
+alert('⛔ Animaciones desactivadas');
+
+}
+
+}
+
 </script>
 
 <div id="modalCarrito" style="
@@ -818,19 +862,23 @@ box-shadow:0 0 30px rgba(0,0,0,.5);
 🛒 Ver carrito
 </div>
 
-<div class="menuItem">
+<div
+class="menuItem"
+onclick="window.open('https://wa.me/543756432527')">
 📞 WhatsApp
 </div>
 
-<div class="menuItem">
+<div
+class="menuItem"
+onclick="window.open('https://maps.google.com')">
 📍 Ubicación
 </div>
 
-<div class="menuItem">
+<div class="menuItem" onclick="toggleAnimaciones()">
 ⚡ Animaciones
 </div>
 
-<div class="menuItem">
+<div class="menuItem" onclick="toggleTema()">
 🌙 Tema oscuro
 </div>
 

@@ -175,7 +175,9 @@ cursor:pointer;
 <script>
 
 let todosProductos = [];
-let carrito = [];
+let carrito = JSON.parse(
+localStorage.getItem('carritoLDO')
+) || [];
 
 function filtrarCategoria(categoria){
 
@@ -289,16 +291,35 @@ cursor:pointer;
 
 function agregarCarrito(id){
 
+const existente =
+carrito.find(p => p.id === id);
+
+if(existente){
+
+existente.cantidad++;
+
+}else{
+
 const producto =
 todosProductos.find(p => p.id === id);
 
-carrito.push(producto);
+carrito.push({
+...producto,
+cantidad:1
+});
+
+}
 
 actualizarCarrito();
 
 }
 
 function actualizarCarrito(){
+  
+  localStorage.setItem(
+'carritoLDO',
+JSON.stringify(carrito)
+);
 
 document.getElementById('carritoBox').innerHTML =
 `🛒 ${carrito.length}`;
@@ -316,18 +337,52 @@ let texto = '🛒 CARRITO\n\n';
 
 let total = 0;
 
-carrito.forEach(p=>{
+carrito.forEach((p,index)=>{
 
-texto += `• ${p.nombre} - $${p.precio}\n`;
+texto += `${index + 1}. ${p.nombre} x${p.cantidad} - $${(Number(p.precio) * p.cantidad).toLocaleString()}\n`;
 
-total += Number(p.precio);
+total += Number(p.precio) * p.cantidad;
 
 });
 
 texto += `\n💰 Total: $${total.toLocaleString()}`;
 
-if(confirm(texto + '\n\n¿Enviar pedido por WhatsApp?')){
+const accion = prompt(
+texto +
+'\n\nEscribí:\n' +
+'1 = Enviar WhatsApp\n' +
+'2 = Vaciar carrito\n' +
+'3 = Eliminar producto'
+);
+
+if(accion === '1'){
 finalizarPedido();
+}
+
+if(accion === '2'){
+carrito = [];
+actualizarCarrito();
+alert('🗑️ Carrito vaciado');
+}
+
+if(accion === '3'){
+
+const numero = prompt(
+'Ingresá el número del producto a eliminar'
+);
+
+const indice = Number(numero) - 1;
+
+if(indice >= 0 && indice < carrito.length){
+
+carrito.splice(indice,1);
+
+actualizarCarrito();
+
+alert('✅ Producto eliminado');
+
+}
+
 }
 
 }
@@ -381,6 +436,8 @@ mostrarProductos(filtrados);
 }
   
 cargarProductos();
+
+actualizarCarrito();
 
 </script>
 

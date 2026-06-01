@@ -326,7 +326,38 @@ total += Number(p.precio);
 
 texto += `\n💰 Total: $${total.toLocaleString()}`;
 
-alert(texto);
+if(confirm(texto + '\n\n¿Enviar pedido por WhatsApp?')){
+finalizarPedido();
+}
+
+}
+
+function finalizarPedido(){
+
+if(carrito.length === 0){
+alert('El carrito está vacío');
+return;
+}
+
+let mensaje = '🛒 NUEVO PEDIDO%0A%0A';
+
+let total = 0;
+
+carrito.forEach(p=>{
+
+mensaje += `📦 ${p.nombre} - $${p.precio}%0A`;
+
+total += Number(p.precio);
+
+});
+
+mensaje += `%0A💰 Total: $${total.toLocaleString()}%0A%0A`;
+mensaje += 'Hola, quiero realizar este pedido.';
+
+window.open(
+`https://wa.me/543756432527?text=${mensaje}`,
+'_blank'
+);
 
 }
 

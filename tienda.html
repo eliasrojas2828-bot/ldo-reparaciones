@@ -736,6 +736,16 @@ window.open(
 '_blank'
 );
 
+carrito = [];
+
+actualizarCarrito();
+
+cerrarCarrito();
+
+localStorage.removeItem('carritoLDO');
+
+alert('✅ Pedido enviado correctamente');
+
 }
 
 function buscarProductos(){
@@ -842,6 +852,26 @@ box.style.display = 'none';
 
 }
 
+function cambiarPago(){
+
+const metodo =
+document.getElementById('metodoPago').value;
+
+const box =
+document.getElementById('datosTransferencia');
+
+if(metodo === 'Transferencia'){
+
+box.style.display = 'block';
+
+}else{
+
+box.style.display = 'none';
+
+}
+
+}
+
 </script>
 
 <div id="modalCarrito" style="
@@ -933,6 +963,7 @@ color:#020617;
 
 <select
 id="metodoPago"
+onchange="cambiarPago()"
 style="
 width:100%;
 padding:15px;
@@ -951,6 +982,36 @@ font-size:18px;
 </option>
 
 </select>
+
+</div>
+
+<div
+id="datosTransferencia"
+style="
+display:none;
+background:white;
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 15px rgba(0,0,0,.08);
+">
+
+<h3 style="
+margin-top:0;
+color:#020617;
+">
+💳 Datos de transferencia
+</h3>
+
+<p style="color:#020617;font-size:18px">
+<b>Alias:</b><br>
+ldo.service
+</p>
+
+<p style="color:#020617;font-size:18px">
+<b>Titular:</b><br>
+LDO Service
+</p>
 
 </div>
 

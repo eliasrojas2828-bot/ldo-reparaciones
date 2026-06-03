@@ -886,6 +886,19 @@ console.log('✅ Service Worker registrado');
 
 }
 
+async function cargarDashboard(){
+
+const { data } = await supabaseClient
+.from('productos')
+.select('*');
+
+document.getElementById('productosDash')
+.innerText = data.length;
+
+}
+
+cargarDashboard();
+
 </script>
 
 </body>

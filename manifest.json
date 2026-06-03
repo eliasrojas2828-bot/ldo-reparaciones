@@ -1,7 +1,7 @@
 {
   "name": "LDO Servicio Técnico",
   "short_name": "LDO Store",
-  "start_url": "/tienda.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#020617",

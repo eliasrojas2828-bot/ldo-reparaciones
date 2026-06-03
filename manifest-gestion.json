@@ -1,0 +1,15 @@
+{
+  "name": "LDO Gestión",
+  "short_name": "LDO Gestión",
+  "start_url": "/gestion.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

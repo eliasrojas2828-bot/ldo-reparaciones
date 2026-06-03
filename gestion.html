@@ -10,6 +10,34 @@
   
 <title>Gestión LDO V3</title>
 
+.dashboard{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:25px;
+}
+
+.cardDash{
+background:linear-gradient(135deg,#0f172a,#111827);
+padding:20px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(56,189,248,.15);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.cardDash h3{
+margin:0;
+font-size:18px;
+color:#cbd5e1;
+}
+
+.cardDash p{
+margin-top:15px;
+font-size:34px;
+font-weight:bold;
+color:#38bdf8;
+}
+
 <style>
 body{margin:0;padding:20px;background:#020617;color:#e2e8f0;font-family:Arial}
 .container{max-width:1500px;margin:auto}
@@ -31,6 +59,26 @@ th,td{padding:10px;border-bottom:1px solid #1e293b;font-size:13px}
 </style>
 </head>
 <body>
+  
+  <div class="dashboard">
+
+<div class="cardDash">
+<h3>💰 Ganancias</h3>
+<p id="gananciasDash">$0</p>
+</div>
+
+<div class="cardDash">
+<h3>📦 Equipos</h3>
+<p id="equiposDash">0</p>
+</div>
+
+<div class="cardDash">
+<h3>🛒 Productos</h3>
+<p id="productosDash">0</p>
+</div>
+
+</div>
+  
 <div class="container" id="panel" style="display:none">
 
 <div class="card">

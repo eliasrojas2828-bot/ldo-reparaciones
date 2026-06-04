@@ -975,6 +975,64 @@ document.getElementById('productosDash')
 
 cargarDashboard();
 
+async function guardarRecepcion(){
+
+const cliente =
+document.getElementById('cliente').value;
+
+const modelo =
+document.getElementById('modelo').value;
+
+const falla =
+document.getElementById('falla').value;
+
+const estado =
+document.getElementById('estado').value;
+
+const fecha =
+new Date().toLocaleDateString();
+
+if(!cliente || !modelo || !falla){
+
+alert('⚠️ Completa todos los campos');
+return;
+
+}
+
+const { error } = await supabaseClient
+
+.from('recepciones')
+
+.insert([{
+
+cliente,
+modelo,
+falla,
+estado,
+fecha
+
+}]);
+
+if(error){
+
+console.log(error);
+
+alert('❌ Error al guardar');
+
+return;
+
+}
+
+alert('✅ Recepción guardada');
+
+document.getElementById('cliente').value = '';
+
+document.getElementById('modelo').value = '';
+
+document.getElementById('falla').value = '';
+
+}
+
 </script>
 
 </body>

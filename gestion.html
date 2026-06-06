@@ -101,6 +101,29 @@ font-weight:bold;
 cursor:pointer;
 }
 
+.listaRecepciones{
+margin-top:25px;
+}
+
+.cardRecepcion{
+background:#0f172a;
+padding:18px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 0 15px rgba(56,189,248,.08);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.cardRecepcion h3{
+margin:0;
+color:#38bdf8;
+}
+
+.cardRecepcion p{
+margin:8px 0;
+color:#cbd5e1;
+}
+
 </style>
 </head>
 <body>
@@ -136,6 +159,14 @@ placeholder="🛠️ Falla del equipo"></textarea>
 <button onclick="guardarRecepcion()">
 💾 Guardar Recepción
 </button>
+
+</div>
+
+<div class="listaRecepciones">
+
+<h2>📋 Recepciones</h2>
+
+<div id="recepcionesLista"></div>
 
 </div>
 
@@ -1025,6 +1056,8 @@ return;
 
 alert('✅ Recepción guardada');
 
+cargarRecepciones();
+
 document.getElementById('cliente').value = '';
 
 document.getElementById('modelo').value = '';
@@ -1032,6 +1065,54 @@ document.getElementById('modelo').value = '';
 document.getElementById('falla').value = '';
 
 }
+
+async function cargarRecepciones(){
+
+const { data, error } = await supabaseClient
+
+.from('recepciones')
+
+.select('*')
+
+.order('id',{ascending:false});
+
+if(error){
+
+console.log(error);
+return;
+
+}
+
+const div =
+document.getElementById('recepcionesLista');
+
+div.innerHTML = '';
+
+data.forEach(r=>{
+
+div.innerHTML += `
+
+<div class="cardRecepcion">
+
+<h3>👤 ${r.cliente}</h3>
+
+<p>📱 ${r.modelo}</p>
+
+<p>🛠️ ${r.falla}</p>
+
+<p>${r.estado}</p>
+
+<p>📅 ${r.fecha}</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+cargarRecepciones();
 
 </script>
 

@@ -160,6 +160,17 @@ color:white;
 font-weight:bold;
 }
 
+.estadoSelect{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#111827;
+color:white;
+font-size:15px;
+}
+
 </style>
 </head>
 <body>
@@ -1094,6 +1105,27 @@ alert('✅ Recepción guardada');
 
 cargarRecepciones();
 
+async function cambiarEstado(id,estado){
+
+const { error } = await supabaseClient
+
+.from('recepciones')
+
+.update({ estado })
+
+.eq('id',id);
+
+if(error){
+
+alert('❌ Error');
+return;
+
+}
+
+cargarRecepciones();
+
+}
+
 document.getElementById('cliente').value = '';
 
 document.getElementById('modelo').value = '';
@@ -1136,19 +1168,44 @@ div.innerHTML += `
 
 <p>🛠️ ${r.falla}</p>
 
-<p class="
-${r.estado.includes('Terminado') ? 'estadoVerde' :
+<select
+class="estadoSelect"
+onchange="cambiarEstado('${r.id}',this.value)"
+>
 
-r.estado.includes('Esperando') ? 'estadoAmarillo' :
+<option
+${r.estado === '🔧 En reparación' ? 'selected' : ''}
+>
 
-r.estado.includes('Entregado') ? 'estadoGris' :
+🔧 En reparación
 
-'estadoAzul'}
-">
+</option>
 
-${r.estado}
+<option
+${r.estado === '⏳ Esperando repuesto' ? 'selected' : ''}
+>
 
-</p>
+⏳ Esperando repuesto
+
+</option>
+
+<option
+${r.estado === '✅ Terminado' ? 'selected' : ''}
+>
+
+✅ Terminado
+
+</option>
+
+<option
+${r.estado === '📦 Entregado' ? 'selected' : ''}
+>
+
+📦 Entregado
+
+</option>
+
+</select>
 
 <p>📅 ${r.fecha}</p>
 

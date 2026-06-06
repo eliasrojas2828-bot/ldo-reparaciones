@@ -124,6 +124,42 @@ margin:8px 0;
 color:#cbd5e1;
 }
 
+.estadoAzul{
+background:#0ea5e9;
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+color:white;
+font-weight:bold;
+}
+
+.estadoVerde{
+background:#22c55e;
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+color:white;
+font-weight:bold;
+}
+
+.estadoAmarillo{
+background:#eab308;
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+color:black;
+font-weight:bold;
+}
+
+.estadoGris{
+background:#64748b;
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+color:white;
+font-weight:bold;
+}
+
 </style>
 </head>
 <body>
@@ -1100,7 +1136,19 @@ div.innerHTML += `
 
 <p>🛠️ ${r.falla}</p>
 
-<p>${r.estado}</p>
+<p class="
+${r.estado.includes('Terminado') ? 'estadoVerde' :
+
+r.estado.includes('Esperando') ? 'estadoAmarillo' :
+
+r.estado.includes('Entregado') ? 'estadoGris' :
+
+'estadoAzul'}
+">
+
+${r.estado}
+
+</p>
 
 <p>📅 ${r.fecha}</p>
 

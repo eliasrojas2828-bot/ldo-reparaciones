@@ -1469,12 +1469,55 @@ document.getElementById('contenidoProducto');
 
 div.innerHTML = `
 
+<div style="position:relative">
+
+<div style="
+position:absolute;
+left:10px;
+top:50%;
+transform:translateY(-50%);
+z-index:10;
+background:rgba(0,0,0,.4);
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+color:white;
+backdrop-filter:blur(10px);
+">
+‹
+</div>
+
+<div style="
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+z-index:10;
+background:rgba(0,0,0,.4);
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+color:white;
+backdrop-filter:blur(10px);
+">
+›
+</div>
+
 <div style="
 display:flex;
 gap:10px;
 overflow-x:auto;
 scroll-snap-type:x mandatory;
 padding-bottom:10px;
+scroll-behavior:smooth;
 ">
 
 ${[p.foto,p.foto2,p.foto3]
@@ -1493,6 +1536,8 @@ flex-shrink:0;
 ">
 
 `).join('')}
+
+</div>
 
 </div>
 

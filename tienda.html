@@ -217,6 +217,44 @@ transform:scale(1.03);
 background:#1e293b;
 }
   
+  .menuCelulares{
+position:relative;
+}
+
+.btnCelulares{
+background:#111827;
+border:none;
+padding:18px 28px;
+border-radius:999px;
+color:white;
+font-size:18px;
+}
+
+.submenuCelulares{
+display:none;
+flex-direction:column;
+gap:10px;
+position:absolute;
+top:75px;
+left:0;
+background:#0f172a;
+padding:15px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(56,189,248,.15);
+z-index:999;
+min-width:240px;
+}
+
+.submenuCelulares button{
+background:#111827;
+border:none;
+padding:15px;
+border-radius:15px;
+color:white;
+font-size:17px;
+text-align:left;
+}
+  
 </style>
 </head>
 
@@ -264,7 +302,34 @@ onkeyup="buscarProductos()">
   
 <button class="cat-btn" onclick="filtrarCategoria('Todas')">Todos</button>
 
-<button class="cat-btn" onclick="filtrarCategoria('Celulares')">📱 Celulares</button>
+<div class="menuCelulares">
+
+<button class="btnCelulares"
+onclick="toggleCelulares()">
+
+📱 Celulares ▼
+
+</button>
+
+<div
+id="submenuCelulares"
+class="submenuCelulares">
+
+<button onclick="filtrarCategoria('nuevos')">
+
+📱 Nuevos
+
+</button>
+
+<button onclick="filtrarCategoria('reacondicionados')">
+
+♻️ Reacondicionados
+
+</button>
+
+</div>
+
+</div>
 
 <button class="cat-btn" onclick="filtrarCategoria('Accesorios')">🔌 Accesorios</button>
 
@@ -1233,6 +1298,23 @@ navigator.serviceWorker
 console.log('✅ Service Worker registrado');
 
 });
+
+}
+
+function toggleCelulares(){
+
+const menu =
+document.getElementById('submenuCelulares');
+
+if(menu.style.display === 'flex'){
+
+menu.style.display = 'none';
+
+}else{
+
+menu.style.display = 'flex';
+
+}
 
 }
 

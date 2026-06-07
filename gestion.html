@@ -292,8 +292,6 @@ height:90px;
 resize:none;
 "></textarea>
 
-</select>
-
 <input
 id="prod_foto"
 type="file"
@@ -632,6 +630,7 @@ const nombre=document.getElementById('prod_nombre').value;
 const precio=document.getElementById('prod_precio').value;
 const stock=document.getElementById('prod_stock').value;
 const categoria=document.getElementById('prod_categoria').value;
+const tipo=document.getElementById('prod_tipo').value;
 const descripcion=document.getElementById('prod_descripcion').value;
 const archivo=document.getElementById('prod_foto').files[0];
 
@@ -673,7 +672,8 @@ precio,
 stock,
 categoria,
 descripcion,
-foto
+foto,
+tipo
 }]);
 
 document.getElementById('prod_nombre').value='';
@@ -681,6 +681,7 @@ document.getElementById('prod_precio').value='';
 document.getElementById('prod_stock').value='';
 document.getElementById('prod_foto').value='';
 document.getElementById('prod_descripcion').value='';
+document.getElementById('prod_tipo').value='';
 
 cargarProductos();
 

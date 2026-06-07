@@ -1691,7 +1691,10 @@ behavior:'smooth'
 
 </script>
 
-<div id="modalProducto" style="
+<div 
+id="modalProducto"
+onclick="cerrarProducto()"
+style="
 display:none;
 position:fixed;
 top:0;
@@ -1707,7 +1710,10 @@ padding:20px;
 box-sizing:border-box;
 ">
 
-<div id="contenidoProducto" style="
+<div 
+id="contenidoProducto" 
+onclick="event.stopPropagation()"
+style="
 background:#0f172a;
 width:100%;
 max-width:450px;

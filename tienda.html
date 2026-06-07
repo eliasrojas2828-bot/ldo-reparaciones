@@ -500,7 +500,10 @@ const mensaje=encodeURIComponent(
 );
 
 div.innerHTML+=`
-<div class="card">
+<div
+class="card"
+onclick="abrirProducto(${p.id})"
+>
 
 ${p.tipo ? `
 
@@ -1456,7 +1459,139 @@ menu.style.display = 'none';
 
 });
 
+function abrirProducto(id){
+
+const p =
+todosProductos.find(x => x.id === id);
+
+const div =
+document.getElementById('contenidoProducto');
+
+div.innerHTML = `
+
+<img
+src="${p.foto || ''}"
+style="
+width:100%;
+height:320px;
+object-fit:cover;
+border-radius:20px;
+">
+
+<h1 style="
+margin-top:20px;
+font-size:32px;
+">
+${p.nombre}
+</h1>
+
+<div style="
+background:#38bdf8;
+color:#020617;
+padding:8px 14px;
+border-radius:12px;
+display:inline-block;
+font-weight:bold;
+margin-top:10px;
+">
+${p.categoria || 'General'}
+</div>
+
+<p style="
+margin-top:20px;
+font-size:18px;
+color:#cbd5e1;
+line-height:1.6;
+">
+${p.descripcion || ''}
+</p>
+
+<h2 style="
+font-size:42px;
+color:#38bdf8;
+margin-top:20px;
+">
+$${Number(p.precio).toLocaleString()}
+</h2>
+
+<button
+onclick="agregarCarrito(${p.id})"
+style="
+width:100%;
+padding:18px;
+border:none;
+border-radius:20px;
+background:linear-gradient(135deg,#38bdf8,#84cc16);
+color:white;
+font-size:22px;
+font-weight:bold;
+margin-top:20px;
+">
+🛒 Agregar al carrito
+</button>
+
+<button
+onclick="cerrarProducto()"
+style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:18px;
+background:#334155;
+color:white;
+margin-top:10px;
+font-size:18px;
+">
+Cerrar
+</button>
+
+`;
+
+document.getElementById('modalProducto')
+.style.display = 'flex';
+
+}
+
+function cerrarProducto(){
+
+document.getElementById('modalProducto')
+.style.display = 'none';
+
+}
+
 </script>
+
+<div id="modalProducto" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(10px);
+z-index:999999;
+justify-content:center;
+align-items:center;
+padding:20px;
+box-sizing:border-box;
+">
+
+<div id="contenidoProducto" style="
+background:#0f172a;
+width:100%;
+max-width:450px;
+border-radius:30px;
+overflow:auto;
+max-height:90%;
+padding:20px;
+box-sizing:border-box;
+box-shadow:0 0 40px rgba(56,189,248,.25);
+">
+
+</div>
+
+</div>
 
 </body>
 </html>

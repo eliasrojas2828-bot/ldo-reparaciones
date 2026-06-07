@@ -953,6 +953,26 @@ cargarProductos();
 actualizarCarrito();
 
 function abrirMenu(){
+  
+document.addEventListener('click', function(e){
+
+const menu =
+document.getElementById('menuFloat');
+
+const boton =
+document.getElementById('menuBtn');
+
+if(
+menu.style.display === 'block' &&
+!menu.contains(e.target) &&
+!boton.contains(e.target)
+){
+
+menu.style.display = 'none';
+
+}
+
+});
 
 const menu =
 document.getElementById('menuFloat');

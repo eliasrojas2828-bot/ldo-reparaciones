@@ -1410,17 +1410,31 @@ function toggleCelulares(){
 const menu =
 document.getElementById('submenuCelulares');
 
-if(menu.style.display === 'flex'){
-
-menu.style.display = 'none';
-
-}else{
-
-menu.style.display = 'flex';
+menu.style.display =
+menu.style.display === 'flex'
+? 'none'
+: 'flex';
 
 }
 
+document.addEventListener('click',function(e){
+
+const menu =
+document.getElementById('submenuCelulares');
+
+const boton =
+document.querySelector('.btnCelulares');
+
+if(
+!menu.contains(e.target) &&
+!boton.contains(e.target)
+){
+
+menu.style.display='none';
+
 }
+
+});
 
 </script>
 

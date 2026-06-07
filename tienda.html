@@ -359,12 +359,31 @@ localStorage.getItem('carritoLDO')
 
 function filtrarCategoria(categoria){
 
-const productos =
-categoria === 'Todas'
-? todosProductos
-: todosProductos.filter(
+let productos = todosProductos;
+
+if(categoria === 'nuevos'){
+
+productos = todosProductos.filter(
+p => p.tipo === 'nuevo'
+);
+
+}
+
+else if(categoria === 'reacondicionados'){
+
+productos = todosProductos.filter(
+p => p.tipo === 'reacondicionado'
+);
+
+}
+
+else if(categoria !== 'Todas'){
+
+productos = todosProductos.filter(
 p => p.categoria === categoria
 );
+
+}
 
 mostrarProductos(productos);
 

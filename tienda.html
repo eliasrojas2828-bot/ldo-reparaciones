@@ -1492,6 +1492,30 @@ backdrop-filter:blur(10px);
 </div>
 
 <div style="
+display:flex;
+justify-content:center;
+gap:8px;
+margin-top:12px;
+">
+
+${[p.foto,p.foto2,p.foto3]
+.filter(f=>f)
+.map(()=>`
+
+<div style="
+width:10px;
+height:10px;
+border-radius:50%;
+background:rgba(255,255,255,.5);
+box-shadow:0 0 10px rgba(255,255,255,.3);
+">
+</div>
+
+`).join('')}
+
+</div>
+
+<div style="
 position:absolute;
 right:10px;
 top:50%;

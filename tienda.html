@@ -1477,7 +1477,10 @@ div.innerHTML = `
 
 <div style="position:relative">
 
-<div 
+${[p.foto,p.foto2,p.foto3]
+.filter(f=>f).length > 1 ? `
+
+<div
 onclick="moverSlider(-1)"
 style="
 position:absolute;
@@ -1498,6 +1501,8 @@ backdrop-filter:blur(10px);
 ">
 ‹
 </div>
+
+` : ''}
 
 <div style="
 display:flex;
@@ -1523,7 +1528,10 @@ box-shadow:0 0 10px rgba(255,255,255,.3);
 
 </div>
 
-<div 
+${[p.foto,p.foto2,p.foto3]
+.filter(f=>f).length > 1 ? `
+
+<div
 onclick="moverSlider(1)"
 style="
 position:absolute;
@@ -1544,6 +1552,8 @@ backdrop-filter:blur(10px);
 ">
 ›
 </div>
+
+` : ''}
 
 <div 
 id="sliderFotos"

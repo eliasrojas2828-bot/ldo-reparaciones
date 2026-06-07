@@ -644,12 +644,20 @@ const tipo=document.getElementById('prod_tipo').value;
 const descripcion=document.getElementById('prod_descripcion').value;
 const archivo=document.getElementById('prod_foto').files[0];
 
+const archivo2 =
+document.getElementById('prod_foto2').files[0];
+
+const archivo3 =
+document.getElementById('prod_foto3').files[0];
+
 if(!nombre || !precio){
 alert('Completa nombre y precio');
 return;
 }
 
 let foto='';
+let foto2='';
+let foto3='';
 
 if(archivo){
 
@@ -674,6 +682,46 @@ const {data} = supabaseClient
 foto=data.publicUrl;
 }
 
+if(archivo2){
+
+const nombreArchivo2 =
+Date.now() + '_2_' + archivo2.name;
+
+await supabaseClient
+.storage
+.from('productos')
+.upload(nombreArchivo2,archivo2);
+
+const {data:data2} =
+supabaseClient
+.storage
+.from('productos')
+.getPublicUrl(nombreArchivo2);
+
+foto2 = data2.publicUrl;
+
+}
+
+if(archivo3){
+
+const nombreArchivo3 =
+Date.now() + '_3_' + archivo3.name;
+
+await supabaseClient
+.storage
+.from('productos')
+.upload(nombreArchivo3,archivo3);
+
+const {data:data3} =
+supabaseClient
+.storage
+.from('productos')
+.getPublicUrl(nombreArchivo3);
+
+foto3 = data3.publicUrl;
+
+}
+
 await supabaseClient
 .from('productos')
 .insert([{
@@ -683,6 +731,8 @@ stock,
 categoria,
 descripcion,
 foto,
+foto2,
+foto3,
 tipo
 }]);
 

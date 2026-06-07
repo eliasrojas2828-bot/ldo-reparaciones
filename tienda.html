@@ -254,6 +254,36 @@ color:white;
 font-size:17px;
 text-align:left;
 }
+
+.card{
+position:relative;
+}
+
+.badgeNuevo{
+position:absolute;
+top:12px;
+left:12px;
+background:#22c55e;
+color:white;
+padding:8px 12px;
+border-radius:12px;
+font-size:12px;
+font-weight:bold;
+box-shadow:0 0 15px rgba(34,197,94,.4);
+}
+
+.badgeReac{
+position:absolute;
+top:12px;
+left:12px;
+background:#38bdf8;
+color:#020617;
+padding:8px 12px;
+border-radius:12px;
+font-size:12px;
+font-weight:bold;
+box-shadow:0 0 15px rgba(56,189,248,.4);
+}
   
 </style>
 </head>
@@ -424,6 +454,22 @@ const mensaje=encodeURIComponent(
 
 div.innerHTML+=`
 <div class="card">
+
+${p.tipo ? `
+
+<div class="
+${p.tipo === 'nuevo'
+? 'badgeNuevo'
+: 'badgeReac'}
+">
+
+${p.tipo === 'nuevo'
+? '🆕 NUEVO'
+: '♻️ REACONDICIONADO'}
+
+</div>
+
+` : ''}
 
 <img src="${p.foto || ''}">
 

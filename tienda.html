@@ -1419,8 +1419,6 @@ menu.style.display === 'flex'
 
 }
 
-document.addEventListener('click',function(e){
-
 const menu =
 document.getElementById('submenuCelulares');
 
@@ -1433,6 +1431,25 @@ if(
 ){
 
 menu.style.display='none';
+
+}
+
+});
+
+document.addEventListener('click', function(e){
+
+const menu =
+document.getElementById('submenuCelulares');
+
+const contenedor =
+document.querySelector('.menuCelulares');
+
+if(
+menu.style.display === 'flex' &&
+!contenedor.contains(e.target)
+){
+
+menu.style.display = 'none';
 
 }
 

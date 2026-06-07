@@ -1550,6 +1550,7 @@ ${[p.foto,p.foto2,p.foto3]
 
 <img
 src="${f}"
+onclick="zoomImagen('${f}')"
 style="
 min-width:100%;
 height:320px;
@@ -1557,6 +1558,7 @@ object-fit:cover;
 border-radius:20px;
 scroll-snap-align:center;
 flex-shrink:0;
+cursor:pointer;
 ">
 
 `).join('')}
@@ -1646,6 +1648,23 @@ document.getElementById('modalProducto')
 
 }
 
+function zoomImagen(src){
+
+document.getElementById('imgZoom').src =
+src;
+
+document.getElementById('modalZoom')
+.style.display = 'flex';
+
+}
+
+function cerrarZoom(){
+
+document.getElementById('modalZoom')
+.style.display = 'none';
+
+}
+
 </script>
 
 <div id="modalProducto" style="
@@ -1677,6 +1696,36 @@ box-shadow:0 0 40px rgba(56,189,248,.25);
 ">
 
 </div>
+
+</div>
+
+<div
+id="modalZoom"
+onclick="cerrarZoom()"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+backdrop-filter:blur(10px);
+z-index:99999999;
+justify-content:center;
+align-items:center;
+padding:20px;
+box-sizing:border-box;
+">
+
+<img
+id="imgZoom"
+style="
+max-width:100%;
+max-height:100%;
+border-radius:20px;
+box-shadow:0 0 40px rgba(255,255,255,.15);
+">
 
 </div>
 

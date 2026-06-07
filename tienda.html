@@ -1504,7 +1504,9 @@ backdrop-filter:blur(10px);
 
 ` : ''}
 
-<div style="
+<div
+id="dotsSlider"
+style="
 display:flex;
 justify-content:center;
 gap:8px;
@@ -1514,15 +1516,21 @@ margin-bottom:15px;
 
 ${[p.foto,p.foto2,p.foto3]
 .filter(f=>f)
-.map(()=>`
+.map((_,i)=>`
 
-<div style="
+<div
+class="dotSlider"
+style="
 width:10px;
 height:10px;
 border-radius:50%;
-background:#38bdf8;
-box-shadow:0 0 10px rgba(255,255,255,.3);
+background:${i===0 ? '#38bdf8' : 'rgba(255,255,255,.35)'};
+transition:.3s;
 ">
+</div>
+
+`).join('')}
+
 </div>
 
 `).join('')}
@@ -1558,6 +1566,7 @@ backdrop-filter:blur(10px);
 
 <div 
 id="sliderFotos"
+onscroll="actualizarDots()"
 style="
 display:flex;
 gap:10px;
@@ -1696,6 +1705,30 @@ document.getElementById('sliderFotos');
 slider.scrollBy({
 left:direccion * 320,
 behavior:'smooth'
+});
+
+}
+
+function actualizarDots(){
+
+const slider =
+document.getElementById('sliderFotos');
+
+const dots =
+document.querySelectorAll('.dotSlider');
+
+const index =
+Math.round(
+slider.scrollLeft / slider.offsetWidth
+);
+
+dots.forEach((dot,i)=>{
+
+dot.style.background =
+i === index
+? '#38bdf8'
+: 'rgba(255,255,255,.35)';
+
 });
 
 }

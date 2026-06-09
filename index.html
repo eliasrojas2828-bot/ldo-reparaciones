@@ -404,16 +404,59 @@ width:100%;
 
 <div id="headerLDO">
 
-<div class="logoLDO">
+<div style="
+display:flex;
+align-items:center;
+gap:14px;
+">
 
 <img
 src="icon.png"
 style="
-width:100%;
-height:100%;
-object-fit:contain;
-border-radius:18px;
+width:75px;
+height:75px;
+border-radius:24px;
+box-shadow:0 0 25px rgba(56,189,248,.25);
 ">
+
+<div>
+
+<div style="
+font-size:30px;
+font-weight:bold;
+line-height:1;
+">
+LDO STORE
+</div>
+
+<div style="
+color:#38bdf8;
+font-size:14px;
+margin-top:5px;
+">
+Tecnología premium
+</div>
+
+</div>
+
+</div>
+
+<div style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<div id="carritoBox" onclick="verCarrito()">
+🛒
+<span id="contadorCarrito">0</span>
+</div>
+
+<div id="menuBtn" onclick="abrirMenu()">
+☰
+</div>
+
+</div>
 
 </div>
 

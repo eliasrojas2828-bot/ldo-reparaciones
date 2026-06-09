@@ -583,11 +583,12 @@ ${p.categoria || 'General'}
 </div>
 
 <p style="
-color:#cbd5e1;
-font-size:16px;
-font-weight:500;
-margin:10px 0;
-min-height:40px;
+color:#94a3b8;
+font-size:13px;
+margin:6px 0;
+height:32px;
+overflow:hidden;
+line-height:1.2;
 ">
 ${p.descripcion || ''}
 </p>
@@ -599,7 +600,11 @@ margin-top:10px;
 $${Number(p.precio).toLocaleString()}
 </div>
 
-<p>
+<p style="
+font-size:12px;
+margin:6px 0;
+color:#94a3b8;
+">
 ${p.stock > 0
 ? '🟢 Disponible'
 : '🔴 Agotado'}
@@ -612,6 +617,10 @@ class="whatsapp"
 style="
 border:none;
 cursor:pointer;
+padding:8px;
+font-size:14px;
+width:100%;
+margin-top:8px;
 ">
 🛒 Agregar
 </button>

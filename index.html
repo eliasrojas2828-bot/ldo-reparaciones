@@ -31,8 +31,9 @@ text-align:center;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
+grid-template-columns:1fr 1fr !important;
+gap:8px !important;
+width:100%;
 }
 
 @media(min-width:900px){
@@ -53,6 +54,8 @@ grid-template-columns:repeat(4,1fr);
 
 .card{
 background:#0f172a;
+width:100%;
+min-width:0;
 border-radius:18px;
 overflow:hidden;
 padding:10px;
@@ -369,6 +372,10 @@ box-sizing:border-box;
 
 .dropdownCelulares{
 grid-column:span 2;
+}
+
+#productos{
+width:100%;
 }
   
 </style>

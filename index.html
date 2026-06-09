@@ -417,53 +417,6 @@ onkeyup="buscarProductos()">
 <h2 style="text-align:center">
 🔥 Productos Destacados
 </h2>
-
-<div class="filtros">
-  
-<button class="cat-btn" onclick="filtrarCategoria('Todas')">Todos</button>
-
-<div class="menuCelulares">
-
-<button class="btnCelulares"
-onclick="toggleCelulares()">
-
-📱 Celulares ▼
-
-</button>
-
-<div
-id="submenuCelulares"
-class="submenuCelulares">
-
-<button onclick="filtrarCategoria('nuevos')">
-
-📱 Nuevos
-
-</button>
-
-<button onclick="filtrarCategoria('reacondicionados')">
-
-♻️ Reacondicionados
-
-</button>
-
-</div>
-
-</div>
-
-<button class="cat-btn" onclick="filtrarCategoria('Accesorios')">🔌 Accesorios</button>
-
-<button class="cat-btn" onclick="filtrarCategoria('Protección')">🛡️ Protección</button>
-
-<button class="cat-btn" onclick="filtrarCategoria('Electrónica')">⚡ Electrónica</button>
-
-<button class="cat-btn" onclick="filtrarCategoria('Ofertas')">🔥 Ofertas</button>
-
-<button class="cat-btn" onclick="filtrarCategoria('Novedades')">✨ Novedades</button>
-
-</div>
-  
-<div
   
 <div id="productos" class="grid"></div>
 
@@ -1468,6 +1421,46 @@ padding:15px;
 z-index:99999;
 box-shadow:0 0 30px rgba(0,0,0,.5);
 ">
+
+<div class="menuItem"
+onclick="filtrarCategoria('Todas')">
+🏠 Todos
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('nuevos')">
+📱 Celulares nuevos
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('reacondicionados')">
+♻️ Reacondicionados
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('Accesorios')">
+🔌 Accesorios
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('Protección')">
+🛡️ Protección
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('Electrónica')">
+⚡ Electrónica
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('Ofertas')">
+🔥 Ofertas
+</div>
+
+<div class="menuItem"
+onclick="filtrarCategoria('Novedades')">
+✨ Novedades
+</div>
 
 <div
 class="menuItem"

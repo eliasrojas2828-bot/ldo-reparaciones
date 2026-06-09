@@ -18,11 +18,13 @@
 
 <style>
 body{
-background:#020617;
-color:white;
-font-family:Arial;
 margin:0;
-padding:10px;
+padding:0;
+font-family:Arial,sans-serif;
+background:
+radial-gradient(circle at top,#0f172a,#020617 70%);
+color:white;
+overflow-x:hidden;
 }
 
 h1{
@@ -77,19 +79,24 @@ border-radius:14px;
 }
 
 .precio{
-font-size:24px;
+font-size:28px;
 font-weight:bold;
 color:#38bdf8;
+margin-top:8px;
 }
 
 .whatsapp{
-display:inline-block;
+display:block;
+width:100%;
+text-align:center;
 margin-top:10px;
-background:#25d366;
+background:linear-gradient(135deg,#22c55e,#16a34a);
 color:white;
-padding:10px 15px;
-border-radius:10px;
+padding:12px;
+border-radius:16px;
 text-decoration:none;
+font-weight:bold;
+border:none;
 }
 
 .cat-btn{
@@ -116,16 +123,18 @@ transform:scale(.95);
 
 .buscador{
 width:100%;
-max-width:500px;
-padding:15px 20px;
+padding:18px 22px;
 border:none;
-border-radius:30px;
-background:#0f172a;
+border-radius:22px;
+background:rgba(15,23,42,.9);
 color:white;
-font-size:16px;
+font-size:18px;
 outline:none;
-box-shadow:0 0 15px rgba(56,189,248,.2);
-transition:.3s;
+box-sizing:border-box;
+backdrop-filter:blur(10px);
+box-shadow:
+0 0 20px rgba(56,189,248,.08),
+inset 0 0 10px rgba(255,255,255,.02);
 }
 
 .buscador:focus{
@@ -134,43 +143,39 @@ transform:scale(1.02);
 }
 
 #barraSuperior{
+padding:15px;
 position:sticky;
-top:0;
-z-index:998;
-background:#020617;
-padding:10px 0;
+top:110px;
+z-index:999;
+background:linear-gradient(#020617,#020617ee);
+backdrop-filter:blur(10px);
 }
 
 #headerLDO{
 position:sticky;
 top:0;
 z-index:9999;
-background:#0f172a;
-padding:15px;
-border-radius:20px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-justify-content:center;
-margin-bottom:20px;
-gap:10px;
-box-shadow:0 0 20px rgba(0,0,0,.4);
+padding:18px;
+background:rgba(15,23,42,.75);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.05);
+box-shadow:0 0 40px rgba(0,0,0,.35);
 }
 
 .logoLDO{
-width:90px;
-height:90px;
-background:none;
-padding:0;
-}
-border-radius:18px;
-background:linear-gradient(135deg,#38bdf8,#84cc16);
+width:80px;
+height:80px;
+border-radius:26px;
+overflow:hidden;
+background:#111827;
 display:flex;
 align-items:center;
 justify-content:center;
-font-weight:bold;
-font-size:22px;
-color:white;
+box-shadow:0 0 25px rgba(56,189,248,.25);
 }
 
 .infoLDO{
@@ -301,20 +306,21 @@ text-align:left;
 
 .card{
 position:relative;
-background:#0f172a;
-border-radius:18px;
+background:rgba(15,23,42,.92);
+border-radius:26px;
 overflow:hidden;
 padding:10px;
-text-align:left;
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.04);
 transition:.25s;
+box-shadow:
+0 0 20px rgba(0,0,0,.25);
 }
 
 .card img{
 width:100%;
-height:170px;
+height:180px;
 object-fit:cover;
-border-radius:14px;
+border-radius:18px;
 }
 
 .badgeNuevo{
@@ -431,6 +437,40 @@ onkeyup="buscarProductos()">
 </div>
 
 <div style="text-align:center;margin-bottom:20px">
+
+<div style="
+padding:20px;
+">
+
+<div style="
+background:
+linear-gradient(135deg,#38bdf8,#84cc16);
+border-radius:30px;
+padding:30px;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 40px rgba(56,189,248,.25);
+">
+
+<div style="
+font-size:40px;
+font-weight:bold;
+line-height:1.1;
+">
+LDO STORE
+</div>
+
+<p style="
+font-size:18px;
+margin-top:10px;
+max-width:500px;
+">
+Tecnología, celulares y accesorios al mejor precio.
+</p>
+
+</div>
+
+</div>
 
 <h2 style="text-align:center">
 🔥 Productos Destacados

@@ -25,6 +25,7 @@ background:
 radial-gradient(circle at top,#0f172a,#020617 70%);
 color:white;
 overflow-x:hidden;
+width:100%;
 }
 
 h1{
@@ -49,6 +50,7 @@ grid-template-columns:repeat(4,1fr);
 @media(min-width:900px){
 
 .grid{
+overflow:hidden;
 grid-template-columns:repeat(4,1fr);
 }
 
@@ -156,6 +158,8 @@ backdrop-filter:blur(10px);
 }
 
 #headerLDO{
+width:100%;
+box-sizing:border-box;
 position:sticky;
 top:0;
 z-index:9999;

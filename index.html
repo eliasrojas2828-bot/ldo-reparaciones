@@ -1251,6 +1251,54 @@ box.style.display = 'none';
 
 }
 
+let linkUbicacion = '';
+
+function obtenerUbicacion(){
+
+if(!navigator.geolocation){
+
+alert('Tu dispositivo no permite ubicación');
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+(posicion)=>{
+
+const lat =
+posicion.coords.latitude;
+
+const lon =
+posicion.coords.longitude;
+
+linkUbicacion =
+`https://maps.google.com/?q=${lat},${lon}`;
+
+document.getElementById(
+'ubicacionTexto'
+).innerHTML =
+'✅ Ubicación obtenida correctamente';
+
+document.getElementById(
+'direccionCliente'
+).value =
+linkUbicacion;
+
+},
+
+()=>{
+
+alert(
+'No se pudo obtener la ubicación'
+);
+
+}
+
+);
+
+}
+
 </script>
 
 <div id="modalCarrito" style="
@@ -1463,6 +1511,33 @@ background:#f1f5f9;
 font-size:18px;
 box-sizing:border-box;
 ">
+
+<button
+onclick="obtenerUbicacion()"
+style="
+width:100%;
+margin-top:15px;
+background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+color:white;
+border:none;
+padding:15px;
+border-radius:15px;
+font-size:18px;
+font-weight:bold;
+box-shadow:0 0 20px rgba(56,189,248,.25);
+">
+📍 Compartir ubicación exacta
+</button>
+
+<div
+id="ubicacionTexto"
+style="
+margin-top:10px;
+color:#38bdf8;
+font-size:14px;
+word-break:break-word;
+">
+</div>
 
 </div>
 

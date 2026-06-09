@@ -564,7 +564,14 @@ ${p.tipo === 'nuevo'
 
 ` : ''}
 
-<img src="${p.foto || ''}">
+<img
+src="${p.foto || ''}"
+style="
+width:100%;
+height:140px;
+object-fit:cover;
+border-radius:12px;
+">
 
 <h3 style="
 font-size:18px;
@@ -1660,18 +1667,6 @@ font-size:32px;
 ">
 ${p.nombre}
 </h1>
-
-<div style="
-background:#38bdf8;
-color:#020617;
-padding:8px 14px;
-border-radius:12px;
-display:inline-block;
-font-weight:bold;
-margin-top:10px;
-">
-${p.categoria || 'General'}
-</div>
 
 <p style="
 margin-top:20px;

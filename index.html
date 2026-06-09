@@ -598,25 +598,25 @@ ${p.categoria || 'General'}
 
 <p style="
 color:#94a3b8;
-font-size:13px;
-margin:6px 0;
-height:32px;
+font-size:12px;
+margin:4px 0;
+height:28px;
 overflow:hidden;
-line-height:1.2;
+line-height:1.1;
 ">
 ${p.descripcion || ''}
 </p>
 
 <div class="precio" style="
-font-size:28px;
-margin-top:10px;
+font-size:22px;
+margin-top:5px;
 ">
 $${Number(p.precio).toLocaleString()}
 </div>
 
 <p style="
-font-size:12px;
-margin:6px 0;
+font-size:11px;
+margin:3px 0;
 color:#94a3b8;
 ">
 ${p.stock > 0
@@ -626,7 +626,7 @@ ${p.stock > 0
 
 ${p.stock > 0 ? `
 <button
-onclick="agregarCarrito(${p.id})"
+onclick="event.stopPropagation();agregarCarrito(${p.id})"
 class="whatsapp"
 style="
 border:none;

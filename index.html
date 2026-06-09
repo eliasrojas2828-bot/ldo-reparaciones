@@ -100,21 +100,25 @@ border:none;
 }
 
 .cat-btn{
-background:#0f172a;
+min-width:max-content;
+padding:14px 22px;
+border:none;
+border-radius:999px;
+background:#111827;
 color:white;
-border:1px solid #1e293b;
-padding:12px 18px;
-border-radius:25px;
+font-size:16px;
+font-weight:bold;
 cursor:pointer;
-transition:.3s;
-font-size:15px;
-margin:3px;
+transition:.25s;
+box-shadow:0 0 15px rgba(0,0,0,.25);
+flex-shrink:0;
 }
 
 .cat-btn:hover{
-transform:translateY(-3px);
+transform:translateY(-2px);
 background:#38bdf8;
-box-shadow:0 0 20px rgba(56,189,248,.4);
+color:#020617;
+box-shadow:0 0 20px rgba(56,189,248,.35);
 }
 
 .cat-btn:active{
@@ -472,9 +476,50 @@ Tecnología, celulares y accesorios
 
 </div>
 
-<h2 style="text-align:center">
-🔥 Productos Destacados
-</h2>
+<div style="
+padding:15px;
+">
+
+<div style="
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding-bottom:10px;
+">
+
+<button class="cat-btn"
+onclick="filtrarCategoria('Todas')">
+🏠 Todos
+</button>
+
+<button class="cat-btn"
+onclick="filtrarCategoria('nuevos')">
+📱 Celulares
+</button>
+
+<button class="cat-btn"
+onclick="filtrarCategoria('Accesorios')">
+🔌 Accesorios
+</button>
+
+<button class="cat-btn"
+onclick="filtrarCategoria('Protección')">
+🛡️ Protección
+</button>
+
+<button class="cat-btn"
+onclick="filtrarCategoria('Electrónica')">
+⚡ Electrónica
+</button>
+
+<button class="cat-btn"
+onclick="filtrarCategoria('Ofertas')">
+🔥 Ofertas
+</button>
+
+</div>
+
+</div>
 
 <div id="productos" class="grid"></div>
 

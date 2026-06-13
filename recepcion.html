@@ -351,19 +351,48 @@ document.getElementById('msg').innerHTML='❌ Error al guardar';
 return;
 }
 
-const mensaje=encodeURIComponent(
-'🔧 NUEVO INGRESO AL TALLER\n\n'+
-'📌 Orden: '+orden+'\n\n'+
-'👤 Cliente: '+cliente+'\n\n'+
-'📲 WhatsApp: '+telefono+'\n\n'+
-'📱 Equipo: '+marca+' '+modelo+'\n\n'+
-'⚡ Enciende: '+enciende+'\n'+
-'🔋 Carga: '+carga+'\n'+
-'🖼️ Imagen: '+imagen+'\n'+
-'💧 Mojado: '+mojo+'\n'+
-'💥 Caída: '+caida+'\n\n'+
-'🛠️ Falla: '+falla
-);
+const mensaje =
+
+`╔══════════════════╗%0A`+
+`      ⚡ LDO STORE ⚡%0A`+
+`╚══════════════════╝%0A%0A`+
+
+`📥 *NUEVO INGRESO AL TALLER*%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`📌 *DATOS DE LA ORDEN*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`🧾 *Orden:* ${item.orden}%0A`+
+`📅 *Fecha:* ${item.fecha}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`👤 *DATOS DEL CLIENTE*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`👤 *Cliente:* ${cliente}%0A`+
+`📲 *WhatsApp:* ${telefono}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`📱 *EQUIPO*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`📱 *Modelo:* ${equipo}%0A%0A`+
+
+`⚡ *Enciende:* ${enciende}%0A`+
+`🔋 *Carga:* ${carga}%0A`+
+`🖼️ *Da imagen:* ${imagen}%0A`+
+`💧 *Se mojó:* ${mojo}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`🛠️ *FALLA REPORTADA*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`${falla}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`⚙️ Sistema generado automáticamente%0A`+
+`🌐 LDO Store`;
 
 document.getElementById('msg').innerHTML=
 '<div class="resultado">✅ Solicitud enviada<br><br>📌 Tu número de orden es:<br><b>'+orden+'</b></div>';

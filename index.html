@@ -1211,11 +1211,11 @@ box.style.display = 'none';
 
 let linkUbicacion = '';
 
-function obtenerUbicacion(){
+async function obtenerUbicacion(){
 
 if(!navigator.geolocation){
 
-alert('Tu dispositivo no permite ubicación');
+alert('Tu dispositivo no soporta ubicación');
 return;
 
 }
@@ -1227,36 +1227,35 @@ navigator.geolocation.getCurrentPosition(
 const lat = posicion.coords.latitude;
 const lon = posicion.coords.longitude;
 
-linkUbicacion =
-`https://www.google.com/maps?q=${lat},${lon}`;
+const link =
+`https://maps.google.com/?q=${lat},${lon}`;
+
+document.getElementById(
+'direccionCliente'
+).value = link;
 
 document.getElementById(
 'ubicacionTexto'
 ).innerHTML =
-'✅ Ubicación obtenida correctamente';
+'✅ Ubicación agregada correctamente';
 
-document.getElementById(
-'direccionCliente'
-).value =
-linkUbicacion;
-
-window.open(linkUbicacion,'_blank');
+alert('✅ Ubicación obtenida');
 
 },
 
 (error)=>{
 
-alert(
-'⚠️ Activá permisos de ubicación en Safari'
-);
-
 console.log(error);
+
+alert(
+'⚠️ Debes permitir ubicación en el navegador'
+);
 
 },
 
 {
 enableHighAccuracy:true,
-timeout:10000,
+timeout:15000,
 maximumAge:0
 }
 

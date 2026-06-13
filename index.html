@@ -572,9 +572,38 @@ div.innerHTML='';
 
 data.forEach(p=>{
 
-const mensaje=encodeURIComponent(
-`Hola, me interesa este producto:\n\n${p.nombre}`
-);
+const mensaje =
+
+`╔══════════════════╗%0A`+
+`      🛒 LDO STORE 🛒%0A`+
+`╚══════════════════╝%0A%0A`+
+
+`📦 *NUEVO PEDIDO RECIBIDO*%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`👤 *DATOS DEL CLIENTE*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`👤 *Cliente:* ${cliente}%0A`+
+`📲 *WhatsApp:* ${telefono}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`🛍️ *PRODUCTO SOLICITADO*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`📦 *Producto:* ${producto}%0A`+
+`💰 *Precio:* $${precio}%0A`+
+`🔢 *Cantidad:* ${cantidad}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`📍 *DETALLES DEL PEDIDO*%0A`+
+`━━━━━━━━━━━━━━%0A%0A`+
+
+`${detalle}%0A%0A`+
+
+`━━━━━━━━━━━━━━%0A`+
+`⚙️ Pedido generado automáticamente%0A`+
+`🌐 LDO Store`;
 
 div.innerHTML+=`
 <div

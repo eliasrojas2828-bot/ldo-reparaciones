@@ -1197,13 +1197,27 @@ document.getElementById('metodoPago').value;
 const box =
 document.getElementById('datosTransferencia');
 
+const btnPagar =
+document.getElementById('btnPagar');
+
+const btnComprobante =
+document.getElementById('btnComprobante');
+
 if(metodo === 'Transferencia'){
 
 box.style.display = 'block';
 
+btnPagar.style.display = 'block';
+
+btnComprobante.style.display = 'block';
+
 }else{
 
 box.style.display = 'none';
+
+btnPagar.style.display = 'none';
+
+btnComprobante.style.display = 'none';
 
 }
 
@@ -1386,6 +1400,52 @@ border-radius:20px;
 margin-top:20px;
 box-shadow:0 0 15px rgba(0,0,0,.08);
 ">
+
+<a
+id="btnPagar"
+href="https://mpago.la/ldostore1999"
+target="_blank"
+style="
+display:none;
+width:100%;
+text-align:center;
+background:#009ee3;
+color:white;
+padding:18px;
+border-radius:18px;
+font-size:20px;
+font-weight:bold;
+text-decoration:none;
+margin-top:15px;
+box-shadow:0 0 20px rgba(0,158,227,.35);
+">
+
+💳 Pagar ahora
+
+</a>
+
+<a
+id="btnComprobante"
+href="https://wa.me/543756432527?text=Hola%20te%20envio%20el%20comprobante"
+target="_blank"
+style="
+display:none;
+width:100%;
+text-align:center;
+background:#22c55e;
+color:white;
+padding:18px;
+border-radius:18px;
+font-size:20px;
+font-weight:bold;
+text-decoration:none;
+margin-top:10px;
+box-shadow:0 0 20px rgba(34,197,94,.35);
+">
+
+📸 Enviar comprobante
+
+</a>
 
 <h3 style="
 margin-top:0;
